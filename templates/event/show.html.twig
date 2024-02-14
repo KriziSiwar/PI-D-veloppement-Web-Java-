@@ -1,0 +1,94 @@
+{% extends 'base1.html.twig' %}
+
+
+{% block body %}
+
+<div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-lg-12">
+        <div class="card text-center">
+            <div class="card-body">
+                <a href="{{ path('contract/new') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h5 class="card-title">Liste des evenements</h5>
+
+
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                     <tr>
+	
+
+     <td>id</td>
+     <td>title</td>
+     <td>description</td>
+     <td>start_date_time</td>
+     <td>end_date_time</td> <!-- Ajout du chevron fermant -->
+     <td>location</td>
+     <td>number_participant</td>
+     <td>status</td>
+     <td>image</td> <!-- Ajout du chevron fermant -->
+
+     <td>category</td>
+ </tr>
+        </thead>
+                    <tbody>
+                    {% for e in events %}
+                        
+        <td>{{ e.id }}</td>
+        <td>{{ e.title }}</td>
+        <td>{{ e.start_date_time|date("Y-m-d") }}</td>
+        <td>{{ e.end_date_time|date("Y-m-d") }}</td>
+        
+        <td>{{ e. location}}</td>
+        <td>{{ e.number_participants }}</td> <!-- Correction de la balise -->
+        <td>{{ e.status }}</td>
+        <td>{{ e.image }}</td>
+        <td>
+            <a class="btn btn-success" href="{{ path('app_event_edit', {'id': e.id}) }}">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="{{ path('app_event_delete', {'id': e.id}) }}">Supprimer</a>
+        </td>
+    </tr>
+    {% endfor %}
+ </tbody>
+                </table>
+                <!-- End small tables -->
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+{% endblock %}
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

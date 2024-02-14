@@ -9,3 +9,7 @@ index_admin:
 app_visitor:
     path: /visitor
     controller: App\Controller\VisitorController::index
+app_event_new:
+    path: /new
+    controller: App\Controller\EventController::new
+    methods: ['GET', 'POST']

@@ -1,0 +1,113 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div style="display: flex; align-items: center; justify-content: center; margin-top: 150px; padding: 10px;">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ajouter un evenement </h5>
+
+                    <!-- Début du formulaire -->
+                    {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+                    <!-- Champ title -->
+                    <div class="form-group row">
+                        <label for="inputText" class="col-sm-4 col-form-label">Title</label>
+                        <div class="col-sm-8">
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.title, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
+                    </div>
+
+                    <!-- Champ description -->
+                    <div class="form-group row">
+                        <label for="inputText" class="col-sm-4 col-form-label">Description</label>
+                        <div class="col-sm-8">
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.description, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
+                    </div>
+
+    
+<!-- Champ start_date_time -->
+<div class="form-group row">
+    <label for="inputText" class="col-sm-4 col-form-label">start Date Time</label>
+    <div class="col-sm-8">
+        {{ form_widget(form.start_date_time, {'attr': {'class': 'form-control'}, 'format': 'yyyy-MM-dd'}) }}
+
+        {{ form_errors(form.start_date_time ,  {'attr': {'class': 'form-control'}, 'format': 'yyyy-MM-dd'}) }}
+    </div>
+</div>
+
+
+
+
+                    </div>
+
+                    <!-- Champ end_date_time -->
+                    <div class="form-group row">
+                        <label for="inputText" class="col-sm-4 col-form-label">End Date Time</label>
+                        <div class="col-sm-8">
+                            {{ form_widget(form.end_date_time, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.end_date_time, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
+                    </div>
+
+                    <!-- Champ location -->
+                    <div class="form-group row">
+                        <label for="inputText" class="col-sm-4 col-form-label">Location</label>
+                        <div class="col-sm-8">
+                            {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.location, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
+                    </div>
+
+                    <!-- Champ number_participants -->
+                    <div class="form-group row">
+                        <label for="inputText" class="col-sm-4 col-form-label">Number of Participants</label>
+                        <div class="col-sm-8">
+                            {{ form_widget(form.number_participants, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.number_participants, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
+                    </div>
+
+                    <!-- Champ status -->
+                    <div class="form-group row">
+                        <label for="inputText" class="col-sm-4 col-form-label">Status</label>
+                        <div class="col-sm-8">
+                            {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.status, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
+                    </div>
+
+                    <!-- Champ image -->
+                    <div class="form-group row">
+                        <label for="inputText" class="col-sm-4 col-form-label">Image</label>
+                        <div class="col-sm-8">
+                        {{ form_label(form.image, 'Image', {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+                        </div>
+                    </div>
+
+                    <!-- Champ category -->
+                    <div class="form-group row">
+                        <label for="inputText" class="col-sm-4 col-form-label">Category</label>
+                        <div class="col-sm-8">
+                            {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.category, {'attr': {'class': 'text-danger'}}) }}
+                        </div>
+                    </div>
+
+                    <!-- Bouton de soumission -->
+                    <div class="form-group row justify-content-center">
+                        {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+                    </div>
+
+                    <!-- Fin du formulaire -->
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
