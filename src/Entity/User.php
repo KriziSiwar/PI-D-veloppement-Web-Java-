@@ -23,6 +23,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
+
+    #[Assert\Choice(choices: ["ROLE_ADMIN", "ROLE_FREELANCER", "ROLE_CLIENT"], message: "Invalid role")]
     private array $roles = [];
 
     /**

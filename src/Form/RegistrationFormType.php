@@ -13,46 +13,46 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType; // Make sure to include this
 
-class RegistrationFormType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('email')
-            ->add('FirstName')
-            ->add('LastName')
+        class RegistrationFormType extends AbstractType
+        {
+            public function buildForm(FormBuilderInterface $builder, array $options): void
+            {
+                $builder
+                    ->add('email')
+                    ->add('FirstName')
+                    ->add('LastName')
 
 
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Register'
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
-        ;
-    }
+                    ->add('agreeTerms', CheckboxType::class, [
+                        'mapped' => false,
+                        'constraints' => [
+                            new IsTrue([
+                                'message' => 'You should agree to our terms.',
+                            ]),
+                        ],
+                    ])
+                    ->add('save', SubmitType::class, [
+                        'label' => 'Register'
+                    ])
+                    ->add('plainPassword', PasswordType::class, [
+                        // instead of being set onto the object directly,
+                        // this is read and encoded in the controller
+                        'mapped' => false,
+                        'attr' => ['autocomplete' => 'new-password'],
+                        'constraints' => [
+                            new NotBlank([
+                                'message' => 'Please enter a password',
+                            ]),
+                            new Length([
+                                'min' => 6,
+                                'minMessage' => 'Your password should be at least {{ limit }} characters',
+                                // max length allowed by Symfony for security reasons
+                                'max' => 4096,
+                            ]),
+                        ],
+                    ])
+                ;
+            }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
