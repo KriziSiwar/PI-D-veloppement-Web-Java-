@@ -78,7 +78,16 @@
                             <li><a href="#">Drop Down 4</a></li>
                         </ul>
                     </li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                    
+                    
+                    {% else %}
+                    <li><a class="nav-link scrollto" href="{{ path('app_login') }}">Log In</a></li>
+
+{% endif %}
+                    
+                    
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
 <li class="nav-item dropdown pe-3" style="width:100px;">
@@ -139,7 +148,7 @@
         </li><!-- End Profile Nav -->
 
 {% else %}
-<li><a class="getstarted scrollto" href="{{ path('app_register') }}">Get Started</a></li>
+<li><a class="getstarted scrollto" href="{{ path('choix') }}">Get Started</a></li>
 
 {% endif %}
 

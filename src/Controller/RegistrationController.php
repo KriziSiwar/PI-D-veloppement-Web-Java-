@@ -16,42 +16,50 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
-    {
-        $user = new User();
-     
 
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+        #[Route('/register', name: 'app_register')]
+        public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+        {
+            $user = new User();
+    
+            $role = $request->query->get('role');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-        
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                    
-                )
-
-            );
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
-
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+        if ($role === 'client') {
+            $user->setRoles(['ROLE_CLIENT']);
+        } elseif ($role === 'freelancer') {
+            $user->setRoles(['ROLE_FREELANCER']);
         }
+            $form = $this->createForm(RegistrationFormType::class, $user);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                // encode the plain password
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+    
+                $entityManager->persist($user);
+                $entityManager->flush();
+    
+                // do anything else you need here, like send an email
+    
+                return $userAuthenticator->authenticateUser(
+                    $user,
+                    $authenticator,
+                    $request
+                );
+            }
+    
+            return $this->render('registration/register.html.twig', [
+                'registrationForm' => $form->createView(),
+            ]);
+        }
+    
+   
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
-    }
     #[Route('/choix', name: 'choix')]
     public function choix(): Response
     {
