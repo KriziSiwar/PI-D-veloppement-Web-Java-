@@ -9,7 +9,55 @@ index_admin:
 app_visitor:
     path: /visitor
     controller: App\Controller\VisitorController::index
+
 app_event_new:
     path: /new
     controller: App\Controller\EventController::new
     methods: ['GET', 'POST']
+
+app_event_delete:
+    path: '/event/{id}/delete'
+    controller: 'App\Controller\EventController::delete'
+    methods: ['GET','POST'] # Ensure that only POST requests are allowed
+
+    # config/routes.yaml
+app_event_show:
+    path: '/event/{id}'
+    controller: 'App\Controller\EventController::show'
+    methods: ['GET']
+
+app_event_edit:
+    path: '/event/{id}/edit'
+    controller: 'App\Controller\EventController::edit'
+    methods: ['GET', 'POST']
+
+
+
+app_logout:
+    path: /logout
+    controller: App\Controller\EventController::logout
+
+
+components_add:
+    path: /components-ADD.html
+    controller: App\Controller\EventController::new
+
+    
+
+components_edit:
+    path: /components-EDIT.html
+    controller: App\Controller\EventController::edit
+
+components_show:
+    path: /components-SHOW.html
+    controller: App\Controller\EventController::show
+
+components_delete:
+    path: /components-DELETE.html
+    controller: App\Controller\EventController::delete
+
+
+
+
+
+
