@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\User;
+use App\Entity\Organisation;
 use App\Repository\ContratRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ContratRepository::class)]
 class Contrat
@@ -46,6 +50,32 @@ public ?\DateTimeInterface $date_debut;
     #[Assert\NotBlank(message:"le nom du freelancer est requis  ")]
     #[Assert\Regex("/^[a-zA-Z]+$/", message:"Le nom du freelancer ne doit contenir que des lettres de l'alphabet")]
     private $freelancer;
+
+    #[ORM\ManyToOne(inversedBy: 'contrat')]
+    public ?Organisation $organisation = null;
+
+    
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    public ?\DateTimeInterface $date_creation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $description = null;
+
+     #[ORM\ManyToOne(inversedBy: 'user')]
+     public ?User $user = null;
+       
+
+    #[ORM\OneToMany(mappedBy: 'no', targetEntity: AssignedJobs::class)]
+    private Collection $assigned_Jobs;
+
+    #[ORM\ManyToMany(targetEntity: PostedJobs::class)]
+    private Collection $posted_jobs_id;
+
+    public function __construct()
+    {
+        $this->assigned_Jobs = new ArrayCollection();
+        $this->posted_jobs_id = new ArrayCollection();
+    }
 
     
 
@@ -125,4 +155,116 @@ public ?\DateTimeInterface $date_debut;
 
         return $this;
     }
+
+    public function getOrganisation(): ?Organisation
+    {
+        return $this->organisation;
+    }
+
+    public function setOrganisation(?Organisation $id): static
+    {
+        $this->organisation = $id;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(): static
+    {
+        $this->date_creation = new \DateTime();
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+
+
+    {
+        return $this->user
+
+        ;
+    }
+
+    public function setUserId(?User $id): static
+    {
+        $this->user = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AssignedJobs>
+     */
+    public function getAssignedJobs(): Collection
+    {
+        return $this->assigned_Jobs;
+    }
+
+    public function addAssignedJob(AssignedJobs $assignedJob): static
+    {
+        if (!$this->assigned_Jobs->contains($assignedJob)) {
+            $this->assigned_Jobs->add($assignedJob);
+            $assignedJob->setNo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedJob(AssignedJobs $assignedJob): static
+    {
+        if ($this->assigned_Jobs->removeElement($assignedJob)) {
+            // set the owning side to null (unless already changed)
+            if ($assignedJob->getNo() === $this) {
+                $assignedJob->setNo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PostedJobs>
+     */
+    public function getPostedJobsId(): Collection
+    {
+        return $this->posted_jobs_id;
+    }
+
+    public function addPostedJobsId(PostedJobs $postedJobsId): static
+    {
+        if (!$this->posted_jobs_id->contains($postedJobsId)) {
+            $this->posted_jobs_id->add($postedJobsId);
+        }
+
+        return $this;
+    }
+
+    public function removePostedJobsId(PostedJobs $postedJobsId): static
+    {
+        $this->posted_jobs_id->removeElement($postedJobsId);
+
+        return $this;
+    }
+
+
+public function __toString()
+{
+    return $this->getOrganisation();
+}
 }

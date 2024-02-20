@@ -13,3 +13,70 @@ app_event_new:
     path: /new
     controller: App\Controller\EventController::new
     methods: ['GET', 'POST']
+app_organisation_new:
+    path: /add/organisation
+    controller: App\Controller\OrganisationController::new
+    methods: ['GET', 'POST']
+
+
+
+contract_new:
+    path: /contract_back/new
+    controller: App\Controller\ContratController::new_back
+    methods: ['GET', 'POST']
+
+# Route pour afficher tous les contrats
+contract_show:
+    path: /contract_back/show
+    controller: App\Controller\ContratController::show_back
+    methods: ['GET']
+
+# Route pour éditer un contrat existant
+contract_edit:
+    path: /contract_back/edit/{id}
+    controller: App\Controller\ContratController::edit_back
+    methods: ['GET', 'POST']
+
+# Route pour supprimer un contrat existant
+contract_delete:
+    path: /contract_back/delete/{id}
+    controller: App\Controller\ContratController::deleteContrat_back
+    methods: ['DELETE']
+
+#organisation_back_show:
+ # path: '/organisation_back/show/{id}'
+ # controller: 'App\Controller\OrganisationController::show_back_organisation'
+ # methods: ['GET']
+
+organisation_back_show:
+  path: '/organisation_back/show'
+  controller: 'App\Controller\OrganisationController::show_back'
+  methods: ['GET']
+
+
+app_organisation_back_show:
+  path: '/organisation_back/{id}'
+  controller: 'App\Controller\OrganisationController::show_back'
+  methods: ['GET']
+  requirements:
+    id: \d+  # Assurez-vous que l'ID est un nombre (expression régulière)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
