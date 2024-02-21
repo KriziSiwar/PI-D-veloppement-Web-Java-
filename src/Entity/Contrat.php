@@ -54,7 +54,7 @@ public ?\DateTimeInterface $date_debut;
     #[ORM\ManyToOne(inversedBy: 'contrat')]
     public ?Organisation $organisation = null;
 
-    
+      
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     public ?\DateTimeInterface $date_creation = null;
 
@@ -89,7 +89,7 @@ public ?\DateTimeInterface $date_debut;
         return $this->date_debut;
     }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): static
+    public function setDateDebut(\DateTimeInterface $date_debut): self
     {
         $this->date_debut = $date_debut;
 
@@ -101,7 +101,10 @@ public ?\DateTimeInterface $date_debut;
         return $this->date_fin;
     }
 */
-    public function setDateFin(\DateTimeInterface $date_fin): static
+
+
+
+    public function setDateFin(\DateTimeInterface $date_fin): self
     {
         $this->date_fin = $date_fin;
 
@@ -173,7 +176,7 @@ public ?\DateTimeInterface $date_debut;
         return $this->date_creation;
     }
 
-    public function setDateCreation(): static
+    public function setDateCreation(): self
     {
         $this->date_creation = new \DateTime();
 

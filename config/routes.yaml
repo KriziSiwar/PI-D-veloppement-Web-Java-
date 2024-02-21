@@ -14,7 +14,6 @@ app_event_new:
     path: /new
     controller: App\Controller\EventController::new
     methods: ['GET', 'POST']
-<<<<<<< HEAD
 app_organisation_new:
     path: /add/organisation
     controller: App\Controller\OrganisationController::new
@@ -76,7 +75,6 @@ app_organisation_back_show:
 
 
 
-=======
 
 app_event_delete:
     path: '/event/{id}/delete'
@@ -118,8 +116,13 @@ components_show:
 components_delete:
     path: /components-DELETE.html
     controller: App\Controller\EventController::delete
->>>>>>> d6ce0593f781ea7856b4fd6b1a445d3cb5a82a65
 
+# config/routes.yaml
+
+app_visitor_index:
+    path: /visitor
+    controller: App\Controller\VisitorController::index
+    methods: ['GET']
 
 
 

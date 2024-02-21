@@ -62,7 +62,7 @@
                      <li class="dropdown"><a href="#"><span>Contrat </span> <i class="bi bi-chevron-down"></i></a>
      <ul>
          <li><a href="{{path('acceuil_contrats')}}">les contrats </a></li>
-           
+           <li><a href="{{path('contract/show')}}">consultez vos  contrats </a></li>
          
          <li><a href="{{ path('app_organisation_index')}}">Organisations</a></li>
         
@@ -89,8 +89,8 @@
                             <li><a href="#">Drop Down 2</a></li>
                             <li><a href="#">Drop Down 3</a></li>
                             <li><a href="#">Drop Down 4</a></li>
-                        </ul>
-                    </li>
+                                  </ul>
+                               </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
                     

@@ -38,8 +38,9 @@ class ContratController extends AbstractController
         {
             
             $contract = new Contrat();
-    
-           
+            $contract->setDateDebut(new \DateTime());
+            $contract->setDateFin(new \DateTime());
+            $contract->setDateCreation(new \DateTime());
             $form = $this->createForm(ContratType::class, $contract);
     
             
