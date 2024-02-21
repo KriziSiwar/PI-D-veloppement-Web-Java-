@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}Event index{% endblock %}
 
@@ -11,13 +11,13 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Start_date</th>
-                <th>End_date</th>
-                <th>Price</th>
+                <th>Start_date_time</th>
+                <th>End_date_time</th>
                 <th>Location</th>
-                <th>Statut</th>
+                <th>Number_participants</th>
+                <th>Status</th>
                 <th>Image</th>
-                <th>Nb_participant</th>
+                <th>Category</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,23 +27,17 @@
                 <td>{{ event.id }}</td>
                 <td>{{ event.title }}</td>
                 <td>{{ event.description }}</td>
-                <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.price }}</td>
+                <td>{{ event.startDateTime ? event.startDateTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.endDateTime ? event.endDateTime|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ event.location }}</td>
-                <td>{{ event.statut }}</td>
+                <td>{{ event.numberParticipants }}</td>
+                <td>{{ event.status }}</td>
                 <td>{{ event.image }}</td>
-                <td>{{ event.nbParticipant }}</td>
+                <td>{{ event.category }}</td>
                 <td>
-                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">Edit</a>
-                    {#<a href="{{ path('app_event_delete', {'id': event.id, 'token': csrf_token('delete' ~ event.id)}) }}">Delete</a>#}
-               <form action="{{ path('app_event_delete', {'id': event.id}) }}" method="post" style="display: inline-block;">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
-                    <button type="submit" style="border: none; background: none; color: red; padding: 0; margin: 0; cursor: pointer;">Delete</button>
-                </form>
+                    <a href="{{ path('app_event_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">edit</a>
                 </td>
-
             </tr>
         {% else %}
             <tr>

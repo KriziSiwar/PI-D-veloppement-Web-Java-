@@ -1,0 +1,16 @@
+{# templates/reclamation/list.html.twig #}
+
+{#{% extends 'base.html.twig' %}
+
+{% block title %}Liste des réclamations{% endblock %}
+
+{% block body %}
+    <h1>Liste des réclamations</h1>
+    <ul>
+        {% for reclamation in reclamations %}
+            <li>{{ reclamation.objet }} - {{ reclamation.statut }}</li>
+            <a href="{{ path('reclamation_edit', {'id': reclamation.id}) }}">Modifier</a>
+            <!-- Ajoutez d'autres liens ou actions ici si nécessaire -->
+        {% endfor %}
+    </ul>
+{% endblock %}#}

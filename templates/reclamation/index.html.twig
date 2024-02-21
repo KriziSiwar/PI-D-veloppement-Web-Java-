@@ -1,0 +1,15 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+	<div class="row justify-content-center align-items-center" style="height: 100vh;">
+		<div class="col-lg-6">
+			<div class="card text-center">
+				<div class="card-body">
+					<h5 class="card-title">Bonjour cher client, si vous voulez passer une réclamation cliquez ici :</h5>
+					{# Change the link destination to point to the new page #}
+					<a href="{{ path('app_reclamation_new') }}">Passer une réclamation</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

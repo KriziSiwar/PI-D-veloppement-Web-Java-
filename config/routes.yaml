@@ -9,125 +9,13 @@ index_admin:
 app_visitor:
     path: /visitor
     controller: App\Controller\VisitorController::index
-
 app_event_new:
     path: /new
     controller: App\Controller\EventController::new
     methods: ['GET', 'POST']
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-app_organisation_new:
-    path: /add/organisation
-    controller: App\Controller\OrganisationController::new
-    methods: ['GET', 'POST']
-
-
-
-contract_new:
-    path: /contract_back/new
-    controller: App\Controller\ContratController::new_back
-    methods: ['GET', 'POST']
-
-# Route pour afficher tous les contrats
-contract_show:
-    path: /contract_back/show
-    controller: App\Controller\ContratController::show_back
-    methods: ['GET']
-
-# Route pour éditer un contrat existant
-contract_edit:
-    path: /contract_back/edit/{id}
-    controller: App\Controller\ContratController::edit_back
-    methods: ['GET', 'POST']
-
-# Route pour supprimer un contrat existant
-contract_delete:
-    path: /contract_back/delete/{id}
-    controller: App\Controller\ContratController::deleteContrat_back
-    methods: ['DELETE']
-
-#organisation_back_show:
- # path: '/organisation_back/show/{id}'
- # controller: 'App\Controller\OrganisationController::show_back_organisation'
- # methods: ['GET']
-
-organisation_back_show:
-  path: '/organisation_back/show'
-  controller: 'App\Controller\OrganisationController::show_back'
-  methods: ['GET']
-
-
-app_organisation_back_show:
-  path: '/organisation_back/{id}'
-  controller: 'App\Controller\OrganisationController::show_back'
-  methods: ['GET']
-  requirements:
-    id: \d+  # Assurez-vous que l'ID est un nombre (expression régulière)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
-
-app_event_delete:
-    path: '/event/{id}/delete'
-    controller: 'App\Controller\EventController::delete'
-    methods: ['GET','POST'] # Ensure that only POST requests are allowed
-
     # config/routes.yaml
-app_event_show:
-    path: '/event/{id}'
-    controller: 'App\Controller\EventController::show'
+# config/routes.yaml
+reclamation_show:
+    path: /reclamation/show
+    controller: App\Controller\ReclamationController::show
     methods: ['GET']
-
-app_event_edit:
-    path: '/event/{id}/edit'
-    controller: 'App\Controller\EventController::edit'
-    methods: ['GET', 'POST']
-
-
-
-app_logout:
-    path: /logout
-    controller: App\Controller\EventController::logout
-
-
-components_add:
-    path: /components-ADD.html
-    controller: App\Controller\EventController::new
-
-    
-
-components_edit:
-    path: /components-EDIT.html
-    controller: App\Controller\EventController::edit
-
-components_show:
-    path: /components-SHOW.html
-    controller: App\Controller\EventController::show
-
-components_delete:
-    path: /components-DELETE.html
-    controller: App\Controller\EventController::delete
-<<<<<<< HEAD
-=======
->>>>>>> d6ce0593f781ea7856b4fd6b1a445d3cb5a82a65
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
-
-
-
-
-
-

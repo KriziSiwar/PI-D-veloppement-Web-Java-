@@ -3,105 +3,63 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Validator\Constraints as Assert;
-
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
-
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+
+
+
 class Event
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-<<<<<<< HEAD
-    private string $title;
+    private ?string $title = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private string $description;
+    private ?string $description = null;
 
+
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTimeInterface $start_date;
+    public ?\DateTimeInterface $start_date_time = null;
 
+
+    #[Assert\NotBlank]
+    #[Assert\GreaterThan(propertyPath: "start_date_time")]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTimeInterface $end_date;
+    public ?\DateTimeInterface $end_date_time = null;
 
+    #[Assert\NotBlank]
+    #[ORM\Column(length: 255)]
+    private ?string $location = null;
+
+    #[Assert\NotBlank]
+    #[Assert\Range(min: 20, max: 100)]
     #[ORM\Column]
-    private int $price=0;
+    public ?int $number_participants = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private string $location;
+    private ?string $status = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private string $statut;
+    private ?string $image = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z]+$/',
+        message: 'La catégorie doit contenir uniquement des lettres.'
+    )]
     #[ORM\Column(length: 255)]
-    private string $image="";
-
-    #[ORM\Column]
-    private int $nb_participant=0;
-=======
-    #[Assert\NotBlank(message: "Please provide a title.")]
-    #[Assert\Length(max: 255, maxMessage: "Title cannot be longer than {{ limit }} characters.")]
-    private string $title;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Please provide a description.")]
-    #[Assert\Length(max: 255, maxMessage: "Description cannot be longer than {{ limit }} characters.")]
-    private string $description;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Assert\NotBlank(message: "Please provide a start date.")]
-    private ?\DateTimeInterface $start_date = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Assert\NotBlank(message: "Please provide an end date.")]
-    private ?\DateTimeInterface $end_date = null;
-
-    #[ORM\Column(type: 'integer')]
-    #[Assert\NotBlank(message: "Please provide a price.")]
-    #[Assert\Type(type: 'integer', message: "Price must be a valid number.")]
-    #[Assert\PositiveOrZero(message: "Price cannot be negative.")]
-    private int $price = 0;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Please provide a location.")]
-    #[Assert\Length(max: 255, maxMessage: "Location cannot be longer than {{ limit }} characters.")]
-    private string $location;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Please provide a status.")]
-    #[Assert\Length(max: 255, maxMessage: "Status cannot be longer than {{ limit }} characters.")]
-    private string $statut;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Please provide an image.")]
-    #[Assert\Length(max: 255, maxMessage: "Image path cannot be longer than {{ limit }} characters.")]
-    private string $image = "";
-
-    #[ORM\Column(type: 'integer')]
-    #[Assert\NotBlank(message: "Please provide the number of participants.")]
-    #[Assert\Type(type: 'integer', message: "Number of participants must be a valid number.")]
-    #[Assert\PositiveOrZero(message: "Number of participants cannot be negative.")]
-    private int $nb_participant = 0;
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
-
-    #[ORM\OneToMany(mappedBy: 'event', targetEntity: Promotion::class)]
-    private Collection $Promotion;
-
-    public function __construct()
-    {
-        $this->Promotion = new ArrayCollection();
-
-    }
+    private ?string $category = null;
 
     public function getId(): ?int
     {
@@ -132,41 +90,26 @@ class Event
         return $this;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
+    public function getStartDateTime(): ?\DateTimeInterface
     {
-        return $this->start_date;
+        return $this->start_date_time;
     }
 
-
-    public function setStartDate(?\DateTimeInterface $startDate): void
+    public function setStartDateTime(\DateTimeInterface $start_date_time): static
     {
-        $this->start_date = $startDate;
-    }
-
-    public function getEndDate(): ?\DateTimeInterface
-    {
-        return $this->end_date;
-    }
-
-<<<<<<< HEAD
-    public function setEndDate(\DateTimeInterface $end_date): static
-=======
-    public function setEndDate(?\DateTimeInterface $end_date): static
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
-    {
-        $this->end_date = $end_date;
+        $this->start_date_time = $start_date_time;
 
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getEndDateTime(): ?\DateTimeInterface
     {
-        return $this->price;
+        return $this->end_date_time;
     }
 
-    public function setPrice(int $price): static
+    public function setEndDateTime(\DateTimeInterface $end_date_time): static
     {
-        $this->price = $price;
+        $this->end_date_time = $end_date_time;
 
         return $this;
     }
@@ -183,14 +126,26 @@ class Event
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getNumberParticipants(): ?int
     {
-        return $this->statut;
+        return $this->number_participants;
     }
 
-    public function setStatut(string $statut): static
+    public function setNumberParticipants(int $number_participants): static
     {
-        $this->statut = $statut;
+        $this->number_participants = $number_participants;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }
@@ -207,83 +162,15 @@ class Event
         return $this;
     }
 
-    public function getNbParticipant(): ?int
+    public function getCategory(): ?string
     {
-        return $this->nb_participant;
+        return $this->category;
     }
 
-    public function setNbParticipant(int $nb_participant): static
+    public function setCategory(string $category): static
     {
-        $this->nb_participant = $nb_participant;
-<<<<<<< HEAD
-=======
+        $this->category = $category;
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Promotion>
-     */
-    public function getPromotion(): Collection
-    {
-        return $this->Promotion;
-    }
-
-    public function addPromotion(Promotion $promotion): static
-    {
-        if (!$this->Promotion->contains($promotion)) {
-            $this->Promotion->add($promotion);
-            $promotion->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removePromotion(Promotion $promotion): static
-    {
-        if ($this->Promotion->removeElement($promotion)) {
-            // set the owning side to null (unless already changed)
-            if ($promotion->getEvent() === $this) {
-                $promotion->setEvent(null);
-            }
-        }
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Promotion>
-     */
-    public function getPromotion(): Collection
-    {
-        return $this->Promotion;
-    }
-
-    public function addPromotion(Promotion $promotion): static
-    {
-        if (!$this->Promotion->contains($promotion)) {
-            $this->Promotion->add($promotion);
-            $promotion->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removePromotion(Promotion $promotion): static
-    {
-        if ($this->Promotion->removeElement($promotion)) {
-            // set the owning side to null (unless already changed)
-            if ($promotion->getEvent() === $this) {
-                $promotion->setEvent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->title;
     }
 }

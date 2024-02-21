@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\component\validator\contraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
 class Reclamation
@@ -21,10 +22,13 @@ class Reclamation
     private ?string $contenu = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $statut = null;
+    private ?string $statut = 'En attente';
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_reclamation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $reponse = 'En attente';
 
     public function getId(): ?int
     {
@@ -75,6 +79,18 @@ class Reclamation
     public function setDateReclamation(\DateTimeInterface $date_reclamation): static
     {
         $this->date_reclamation = $date_reclamation;
+
+        return $this;
+    }
+
+    public function getReponse(): ?string
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(string $reponse): static
+    {
+        $this->reponse = $reponse;
 
         return $this;
     }

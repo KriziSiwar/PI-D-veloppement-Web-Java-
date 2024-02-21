@@ -3,110 +3,60 @@
 
 {% block body %}
 
-<div class="row justify-content-center align-items-center" style="height: 100vh;">
-    <div class="col-lg-12">
-        <div class="card text-center">
-            <div class="card-body">
-                <a href="{{ path('contract/new') }}" method="post"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
-                <h5 class="card-title">Liste des contrats</h5>
+	<div class="row justify-content-center align-items-center" style="height: 100vh;">
+		<div class="col-lg-6">
+			<div class="card text-center">
+				<div class="card-body">
+					<a href="{{ path('contract/new') }}">
+						<i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i>
+					</a>
+					<h5 class="card-title">Liste des contrats</h5>
 
 
-                <!-- Table with stripped rows -->
-                <table class="table table-striped">
-                    <thead>
-                     <tr>
-     <td>id</td>
-     <td>date_debut</td>
-     <td>date_fin</td>
-     <td>montant</td>
-     <td>statut</td> <!-- Ajout du chevron fermant -->
-     <td>projet</td>
-     <td>freelancer</td>
-     <td>organisation_id</td>
-     <td>user_id</td>
-     <td>date_creation</td>
-     <td>description</td>
-     <td>Modification</td>
-     <td>Suppression</td> <!-- Ajout du chevron fermant -->
-       </tr>
-        </thead>
-                    <tbody>
-                    {% for c in contrats %}
-                        
-        <td>{{ c.id }}</td>
-        <td>{{ c.date_debut|date("Y-m-d") }}</td>
-        <td>{{ c.date_fin|date("Y-m-d") }}</td>
-        <td>{{ c.montant }}</td>
-        <td>{{ c.statut }}</td> <!-- Correction de la balise -->
-        <td>{{ c.projet }}</td>
-        <td>{{ c.freelancer }}</td>
-       <td>{{ c.organisation.id}}</td>
-        <td>{{ c.user.id}}</td>
-        <td>{{ c.date_creation |date("Y-m-d")}}</td>
-        <td>{{ c.description}}</td>
+					<!-- Table with stripped rows -->
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<td>id</td>
+								<td>date_debut</td>
+								<td>date_fin</td>
+								<td>montant</td>
+								<td>statut</td>
+								<!-- Ajout du chevron fermant -->
+								<td>projet</td>
+								<td>freelancer</td>
+								<td>Modification</td>
+								<td>Suppression</td>
+								<!-- Ajout du chevron fermant -->
+							</tr>
+						</thead>
+						<tbody>
+							{% for c in contrats %}
 
-        <td>
-            <a class="btn btn-success" href="{{ path('contract/edit', {'id': c.id}) }}">Modifier</a>
-        </td>
-        <form action="{{ path('contract/delete', {'id': c.id}) }}" method="post">
-        <input type="hidden" name="_method" value="DELETE">
-        <td>
-            <button type="submit" class="btn btn-danger">Supprimer</button>
-        </td>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        </tr>
-        {% endfor %}
-          </tbody>
-                </table>
-                <!-- End small tables -->
+								<td>{{ c.id }}</td>
+								<td>{{ c.date_debut|date("Y-m-d") }}</td>
+								<td>{{ c.date_fin|date("Y-m-d") }}</td>
+								<td>{{ c.montant }}</td>
+								<td>{{ c.statut }}</td>
+								<!-- Correction de la balise -->
+								<td>{{ c.projet }}</td>
+								<td>{{ c.freelancer }}</td>
+								<td>
+									<a class="btn btn-success" href="{{ path('contract/edit', {'id': c.id}) }}">Modifier</a>
+								</td>
+								<td>
+									<a class="btn btn-danger" href="{{ path('contract/delete', {'id': c.id}) }}">Supprimer</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<!-- End small tables -->
 
-            </div>
-            </div>
+			</div>
+		</div>
 
-           </div>
+	</div>
 
 
-
-            </div>
-            {% endblock %}
-
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>{% endblock %}

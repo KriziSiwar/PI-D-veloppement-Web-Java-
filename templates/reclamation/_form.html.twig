@@ -1,0 +1,17 @@
+{#{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}#}
+{#{% extends 'base.html.twig' %}#}
+
+{% block title %}Your Page Title
+{% endblock %}
+
+{% block body %}
+	<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

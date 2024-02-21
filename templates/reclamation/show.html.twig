@@ -1,0 +1,55 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+	{#<h1>Reclamation</h1>#}
+	<div class="row justify-content-center align-items-center" style="height: 100vh;">
+		<div class="col-lg-6">
+			<div class="card text-center">
+				<div
+					class="card-body">
+					{# Change the link destination to point to the index page #}
+					<a href="{{ path('app_reclamation_new') }}">
+						<i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i>
+					</a>
+					<h5 class="card-title">Liste des reclamations</h5>
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<td>Id</td>
+								<td>Objet</td>
+								<td>Contenu</td>
+								<td>statut</td>
+								<!-- Ajout du chevron fermant -->
+								<td>Date_reclamation</td>
+								<td>reponse</td>
+								<!-- Ajout du chevron fermant -->
+							</tr>
+						</thead>
+						<tbody>
+							{% for c in reclamation %}
+								<tr>
+									<td>{{ c.id }}</td>
+									<td>{{ c.objet}}</td>
+									<td>{{ c.contenu }}</td>
+									<td>{{ c.statut }}</td>
+									<td>{{ c.dateReclamation|date("Y-m-d") }}</td>
+									<td>{{ c.reponse }}</td>
+									<!-- Correction de la balise -->
+									<td>
+										<a class="btn btn-success" href="{{ path('reclamation/edit', {'id': c.id}) }}">Modifier</a>
+									</td>
+									<td>
+										<a class="btn btn-danger" href="{{ path('reclamation/delete', {'id': c.id}) }}">Supprimer</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
