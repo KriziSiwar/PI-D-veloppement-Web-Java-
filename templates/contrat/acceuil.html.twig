@@ -1,0 +1,26 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Créer un contrat{% endblock %}
+
+{% block body %}
+    {#<div class="content">
+        <header id="header" class="header fixed-top">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <a href="index.html" class="logo d-flex align-items-center">
+                    <img src="/asset1/img/logo.png" alt="">
+                    
+                </a>
+            </div>
+        </header>#}
+        <div class="content">
+            <br>
+            <br>
+            <br>
+            <h2>Explorez notre plateforme de gestion des contrats, conçue pour simplifier et rationaliser vos processus contractuels. Découvrez une solution complète pour centraliser, suivre et gérer efficacement tous vos contrats en un seul endroit.</h2>
+            <p>
+                Avec des fonctionnalités intuitives et des outils puissants, notre plateforme vous permet de rester organisé, de respecter les délais et de prendre des décisions éclairées pour optimiser vos engagements contractuels. Bienvenue sur notre page d'accueil des contrats, où la gestion des contrats devient un jeu d'enfant
+            </p>
+            <a href="{{ path('contract/new') }}" class="btn btn-primary">Get Started</a>
+        </div>
+    </div>
+{% endblock %}

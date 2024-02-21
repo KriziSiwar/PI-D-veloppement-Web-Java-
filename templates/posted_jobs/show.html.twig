@@ -1,0 +1,64 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <style>
+                .content-box {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 800px; /* Adjust the max-width as needed */
+                    margin-top: 50px; /* Adjust the top margin as needed */
+                    padding: 70px; /* Add padding as needed */
+                }
+            </style>
+
+            <div class="content-box">
+                <h1>PostedJobs</h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ posted_job.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Title</th>
+                            <td>{{ posted_job.title }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ posted_job.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Required_skills</th>
+                            <td>{{ posted_job.requiredSkills }}</td>
+                        </tr>
+                        <tr>
+                            <th>Budget_estimate</th>
+                            <td>{{ posted_job.budgetEstimate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Start_date</th>
+                            <td>{{ posted_job.startDate ? posted_job.startDate|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>End_date</th>
+                            <td>{{ posted_job.endDate ? posted_job.endDate|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ posted_job.status }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_posted_jobs_index') }}">back to list</a>
+
+                <a href="{{ path('app_posted_jobs_edit', {'id': posted_job.id}) }}">edit</a>
+
+                {{ include('posted_jobs/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </main>
+{% endblock %}

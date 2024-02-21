@@ -1,0 +1,62 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <style>
+                .content-box {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 800px; /* Adjust the max-width as needed */
+                    margin-top: 50px; /* Adjust the top margin as needed */
+                    padding: 70px; /* Add padding as needed */
+                }
+            </style>
+
+            <div class="content-box">
+                <h1>PostedJobs index</h1>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Required_skills</th>
+                            <th>Budget_estimate</th>
+                            <th>Start_date</th>
+                            <th>End_date</th>
+                            <th>Status</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for posted_job in posted_jobs %}
+                        <tr>
+                            <td>{{ posted_job.id }}</td>
+                            <td>{{ posted_job.title }}</td>
+                            <td>{{ posted_job.description }}</td>
+                            <td>{{ posted_job.requiredSkills }}</td>
+                            <td>{{ posted_job.budgetEstimate }}</td>
+                            <td>{{ posted_job.startDate ? posted_job.startDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ posted_job.endDate ? posted_job.endDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ posted_job.status }}</td>
+                            <td>
+                                <a href="{{ path('app_posted_jobs_show', {'id': posted_job.id}) }}">show</a>
+                                <a href="{{ path('app_posted_jobs_edit', {'id': posted_job.id}) }}">edit</a>
+                                <a> {{ include('posted_jobs/_delete_form.html.twig') }} </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_posted_jobs_new') }}">Create new</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

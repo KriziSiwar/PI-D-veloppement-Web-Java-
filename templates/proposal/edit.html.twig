@@ -1,0 +1,27 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <style>
+                .content-box {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 800px; /* Adjust the max-width as needed */
+                    margin-top: 50px; /* Adjust the top margin as needed */
+                    padding: 70px; /* Add padding as needed */
+                }
+            </style>
+
+            <div class="content-box">
+                <h1>Edit Proposal</h1>
+
+                {{ include('proposal/_form.html.twig', {'button_label': 'Update'}) }}
+
+                <a href="{{ path('app_proposal_index') }}">back to list</a>
+
+                {{ include('proposal/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </main>
+{% endblock %}

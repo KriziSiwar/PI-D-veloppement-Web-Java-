@@ -1,0 +1,73 @@
+{% extends 'base1.html.twig' %}
+{% block body %}
+    <main>
+        <div class="container">
+            <style>
+                .content-box {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 600px; /* Adjust the max-width as needed */
+                    margin-top: 50px; /* Adjust the top margin as needed */
+                    padding: 70px; 
+                
+                }
+            </style>
+
+            <div class="content-box">
+                <h1>AssignedJobs index</h1>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Freelancer Name</th>
+                            <th>Posted Job Title</th>
+                            <th>Start_date</th>
+                            <th>End_date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for assigned_job in assigned_jobs %}
+                        <tr>
+                            <td>{{ assigned_job.id }}</td>
+                            <td>
+                                {% if assigned_job.freelancerId|length > 0 %}
+                                    {% for freelancer in assigned_job.freelancerId %}
+                                        {{ freelancer.name }}
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    No Freelancer Assigned
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if assigned_job.postedJobs|length > 0 %}
+                                    {{ assigned_job.postedJobs.first().title }}
+                                {% else %}
+                                    No Posted Job Assigned
+                                {% endif %}
+                            </td>
+                            <td>{{ assigned_job.startDate ? assigned_job.startDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ assigned_job.endDate ? assigned_job.endDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ assigned_job.status }}</td>
+                            <td>
+                                <a href="{{ path('app_assigned_jobs_show', {'id': assigned_job.id}) }}">show</a>
+                                <a href="{{ path('app_assigned_jobs_edit', {'id': assigned_job.id}) }}">edit</a>
+                                <a> {{ include('assigned_jobs/_delete_form.html.twig') }} </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_assigned_jobs_new') }}">Create new</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

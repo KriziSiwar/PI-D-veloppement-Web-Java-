@@ -1,0 +1,24 @@
+{% extends 'base1.html.twig' %}
+{% block body %}
+    <main>
+        <div class="container">
+            <style>
+                .content-box {
+                  margin-left: auto;
+                    margin-right: auto;
+                    max-width: 600px; /* Adjust the max-width as needed */
+                    margin-top: 50px; /* Adjust the top margin as needed */
+                    padding: 70px; 
+                }
+            </style>
+
+            <div class="content-box">
+                <h1>Create new Actualite</h1>
+
+                {{ include('actualite/_form.html.twig') }}
+
+                <a href="{{ path('app_actualite_index') }}">back to list</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

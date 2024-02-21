@@ -1,0 +1,25 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <style>
+                .content-box {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 800px; /* Adjust the max-width as needed */
+                    margin-top: 50px; /* Adjust the top margin as needed */
+                    padding: 70px; /* Add padding as needed */
+                }
+            </style>
+
+            <div class="content-box">
+                <h1>Create new PostedJobs</h1>
+
+                {{ include('posted_jobs/_form.html.twig') }}
+
+                <a href="{{ path('app_posted_jobs_index') }}">back to list</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

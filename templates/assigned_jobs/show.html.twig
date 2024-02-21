@@ -1,0 +1,71 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <style>
+                .content-box {
+                  margin-left: auto;
+                    margin-right: auto;
+                    max-width: 600px; /* Adjust the max-width as needed */
+                    margin-top: 50px; /* Adjust the top margin as needed */
+                    padding: 70px; 
+                }
+            </style>
+
+            <div class="content-box">
+                <h1>AssignedJobs</h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ assigned_job.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Start_date</th>
+                            <td>{{ assigned_job.startDate ? assigned_job.startDate|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>End_date</th>
+                            <td>{{ assigned_job.endDate ? assigned_job.endDate|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ assigned_job.status }}</td>
+                        </tr>
+                        <tr>
+                            <th>Freelancer</th>
+                            <td>
+                                {% if assigned_job.freelancerId|length > 0 %}
+                                    {% for freelancer in assigned_job.freelancerId %}
+                                        {{ freelancer.name }}
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    No Freelancer Assigned
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>PostedJob</th>
+                            <td>
+                                {% if assigned_job.postedJobs|length > 0 %}
+                                    {{ assigned_job.postedJobs.first().title }}
+                                {% else %}
+                                    No Posted Job Assigned
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_assigned_jobs_index') }}">back to list</a>
+
+                <a href="{{ path('app_assigned_jobs_edit', {'id': assigned_job.id}) }}">edit</a>
+
+                {{ include('assigned_jobs/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </main>
+{% endblock %}
