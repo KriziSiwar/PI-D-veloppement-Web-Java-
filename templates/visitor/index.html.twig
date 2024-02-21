@@ -1,20 +1,57 @@
 {% extends 'base1.html.twig' %}
 
-{% block title %}Hello VisitorController!{% endblock %}
+{% block title %}Event index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Event index</h1>
 
-{#<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Start_date</th>
+                <th>End_date</th>
+                <th>Price</th>
+                <th>Location</th>
+                <th>Statut</th>
+                <th>Image</th>
+                <th>Nb_participant</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.price }}</td>
+                <td>{{ event.location }}</td>
+                <td>{{ event.statut }}</td>
+                <td>{{ event.image }}</td>
+                <td>{{ event.nbParticipant }}</td>
+                <td>
+                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">Edit</a>
+                    {#<a href="{{ path('app_event_delete', {'id': event.id, 'token': csrf_token('delete' ~ event.id)}) }}">Delete</a>#}
+               <form action="{{ path('app_event_delete', {'id': event.id}) }}" method="post" style="display: inline-block;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                    <button type="submit" style="border: none; background: none; color: red; padding: 0; margin: 0; cursor: pointer;">Delete</button>
+                </form>
+                </td>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/siwar/OneDrive/Bureau/Pidev-CraNex/Test_PROJET/src/Controller/VisitorController.php'|file_link(0) }}">src/Controller/VisitorController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/siwar/OneDrive/Bureau/Pidev-CraNex/Test_PROJET/templates/visitor/index.html.twig'|file_link(0) }}">templates/visitor/index.html.twig</a></code></li>
-    </ul>
-</div>#}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_event_new') }}">Create new</a>
 {% endblock %}
