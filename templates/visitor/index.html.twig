@@ -1,14 +1,22 @@
 {% extends 'base1.html.twig' %}
 
+<<<<<<< HEAD
 {% block title %}Event index{% endblock %}
 
 {% block body %}
     <h1>Event index</h1>
+=======
+{% block title %}Organisation index{% endblock %}
+
+{% block body %}
+    <h1>Organisation index</h1>
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+<<<<<<< HEAD
                 <th>Title</th>
                 <th>Description</th>
                 <th>Start_date</th>
@@ -18,10 +26,19 @@
                 <th>Statut</th>
                 <th>Image</th>
                 <th>Nb_participant</th>
+=======
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Telephone</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Domaine_activite</th>
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
+<<<<<<< HEAD
         {% for event in events %}
             <tr>
                 <td>{{ event.id }}</td>
@@ -55,3 +72,29 @@
 
     <a href="{{ path('app_event_new') }}">Create new</a>
 {% endblock %}
+=======
+        {% for organisation in organisations %}
+            <tr>
+                <td>{{ organisation.id }}</td>
+                <td>{{ organisation.nom }}</td>
+                <td>{{ organisation.adresse }}</td>
+                <td>{{ organisation.telephone }}</td>
+                <td>{{ organisation.email }}</td>
+                <td>{{ organisation.contact }}</td>
+                <td>{{ organisation.domaineActivite }}</td>
+                <td>
+                    <a href="{{ path('app_organisation_show', {'id': organisation.id}) }}">show</a>
+                    <a href="{{ path('app_organisation_edit', {'id': organisation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_organisation_new') }}">Create new</a>
+{% endblock %}
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c

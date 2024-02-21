@@ -9,7 +9,11 @@
         <thead>
             <tr>
                 <th>Id</th>
+<<<<<<< HEAD
                
+=======
+                <th>Title</th>
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
                 <th>QR_code</th>
                 <th>Discount</th>
                 <th>Id_event</th>
@@ -20,10 +24,17 @@
         {% for promotion in promotions %}
             <tr>
                 <td>{{ promotion.id }}</td>
+<<<<<<< HEAD
                
                 <td>{{ promotion.QRCode }}</td>
                 <td>{{ promotion.discount }}</td>
                 <td>{{ promotion.Event }}</td>
+=======
+                <td>{{ promotion.title }}</td>
+                <td>{{ promotion.QRCode }}</td>
+                <td>{{ promotion.discount }}</td>
+                <td>{{ promotion.idEvent }}</td>
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
                 <td>
                     <a href="{{ path('app_promotion_show', {'id': promotion.id}) }}">show</a>
                     <a href="{{ path('app_promotion_edit', {'id': promotion.id}) }}">edit</a>

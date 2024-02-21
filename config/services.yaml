@@ -22,6 +22,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+<<<<<<< HEAD
 #○services:
     # configure les alias pour les types de formulaires
     #App\Form\PromotionType: ~
+=======
+   
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c

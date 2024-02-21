@@ -7,6 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Validator\Constraints as Assert;
+
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -17,6 +22,7 @@ class Event
     private int $id;
 
     #[ORM\Column(length: 255)]
+<<<<<<< HEAD
     private string $title;
 
     #[ORM\Column(length: 255)]
@@ -42,6 +48,51 @@ class Event
 
     #[ORM\Column]
     private int $nb_participant=0;
+=======
+    #[Assert\NotBlank(message: "Please provide a title.")]
+    #[Assert\Length(max: 255, maxMessage: "Title cannot be longer than {{ limit }} characters.")]
+    private string $title;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Please provide a description.")]
+    #[Assert\Length(max: 255, maxMessage: "Description cannot be longer than {{ limit }} characters.")]
+    private string $description;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Assert\NotBlank(message: "Please provide a start date.")]
+    private ?\DateTimeInterface $start_date = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Assert\NotBlank(message: "Please provide an end date.")]
+    private ?\DateTimeInterface $end_date = null;
+
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank(message: "Please provide a price.")]
+    #[Assert\Type(type: 'integer', message: "Price must be a valid number.")]
+    #[Assert\PositiveOrZero(message: "Price cannot be negative.")]
+    private int $price = 0;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Please provide a location.")]
+    #[Assert\Length(max: 255, maxMessage: "Location cannot be longer than {{ limit }} characters.")]
+    private string $location;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Please provide a status.")]
+    #[Assert\Length(max: 255, maxMessage: "Status cannot be longer than {{ limit }} characters.")]
+    private string $statut;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Please provide an image.")]
+    #[Assert\Length(max: 255, maxMessage: "Image path cannot be longer than {{ limit }} characters.")]
+    private string $image = "";
+
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank(message: "Please provide the number of participants.")]
+    #[Assert\Type(type: 'integer', message: "Number of participants must be a valid number.")]
+    #[Assert\PositiveOrZero(message: "Number of participants cannot be negative.")]
+    private int $nb_participant = 0;
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
 
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: Promotion::class)]
     private Collection $Promotion;
@@ -97,7 +148,11 @@ class Event
         return $this->end_date;
     }
 
+<<<<<<< HEAD
     public function setEndDate(\DateTimeInterface $end_date): static
+=======
+    public function setEndDate(?\DateTimeInterface $end_date): static
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
     {
         $this->end_date = $end_date;
 
@@ -160,6 +215,39 @@ class Event
     public function setNbParticipant(int $nb_participant): static
     {
         $this->nb_participant = $nb_participant;
+<<<<<<< HEAD
+=======
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Promotion>
+     */
+    public function getPromotion(): Collection
+    {
+        return $this->Promotion;
+    }
+
+    public function addPromotion(Promotion $promotion): static
+    {
+        if (!$this->Promotion->contains($promotion)) {
+            $this->Promotion->add($promotion);
+            $promotion->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion): static
+    {
+        if ($this->Promotion->removeElement($promotion)) {
+            // set the owning side to null (unless already changed)
+            if ($promotion->getEvent() === $this) {
+                $promotion->setEvent(null);
+            }
+        }
+>>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
 
         return $this;
     }

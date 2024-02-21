@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-lg-20"> <!-- Réduire la largeur du tableau -->
+    <div class="card text-center" style="margin-bottom: 20px;">
+        
+            <div class="card-body">
+                <a href="{{ path('contract_back/new') }}" method="post"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h5 class="card-title">Liste des contrats</h5>
+
+                <!-- Table with stripped rows -->
+                <div class="table-responsive"> <!-- Rendre le tableau réactif pour permettre le défilement horizontal -->
+                    <table class="table table-striped" style="margin-left: 80px;"> <!-- Eloigner le tableau vers la droite -->
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>date_debut</th>
+                                <th>date_fin</th>
+                                <th>montant</th>
+                                <th>statut</th>
+                                <th>projet</th>
+                                <th>freelancer</th>
+                                <th>organisation_id</th>
+                                <th>user_id</th>
+                                <th>date_creation</th>
+                                <th>description</th>
+                                <th>Modification</th>
+                                <th>Suppression</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in contrats %}
+                            <tr>
+                                <td>{{ c.id }}</td>
+                                <td>{{ c.date_debut|date("Y-m-d") }}</td>
+                                <td>{{ c.date_fin|date("Y-m-d") }}</td>
+                                <td>{{ c.montant }}</td>
+                                <td>{{ c.statut }}</td>
+                                <td>{{ c.projet }}</td>
+                                <td>{{ c.freelancer }}</td>
+                                <td>{{ c.organisation.id }}</td>
+                                <td>{{ c.user.id }}</td>
+                                <td>{{ c.date_creation |date("Y-m-d") }}</td>
+                                <td>{{ c.description }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('contract_back/edit', {'id': c.id}) }}">Modifier</a>
+                                </td>
+                                <td>
+                                    <form action="{{ path('contract_back/delete', {'id': c.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End small tables -->
+
+                 <!-- Bouton pour ajouter un contrat -->
+                <a href="{{ path('contract_back/new') }}" class="btn btn-primary">Ajouter un Nouveau  Contrat</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
