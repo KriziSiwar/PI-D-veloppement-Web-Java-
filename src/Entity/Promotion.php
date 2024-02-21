@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Event;
 use App\Repository\PromotionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,30 +13,17 @@ class Promotion
     #[ORM\Column]
     private ?int $id = null;
 
-<<<<<<< HEAD
     //#[ORM\Column(length: 255)]
     //public ?string $title = null;
 
     #[ORM\Column(length: 255)]
     public ?string $QR_code = null;
-=======
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $QR_code = null;
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
 
     #[ORM\Column]
     private ?int $discount = null;
 
-<<<<<<< HEAD
     /*#[ORM\Column]
     private ?int $id_event = null;*/
-=======
-    #[ORM\Column]
-    private ?int $id_event = null;
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
 
     #[ORM\ManyToOne(inversedBy: 'Promotion')]
     private ?Event $event = null;
@@ -46,11 +33,7 @@ class Promotion
         return $this->id;
     }
 
-<<<<<<< HEAD
    /* public function getTitle(): ?string
-=======
-    public function getTitle(): ?string
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
     {
         return $this->title;
     }
@@ -60,11 +43,7 @@ class Promotion
         $this->title = $title;
 
         return $this;
-<<<<<<< HEAD
     }*/
-=======
-    }
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
 
     public function getQRCode(): ?string
     {
@@ -90,11 +69,7 @@ class Promotion
         return $this;
     }
 
-<<<<<<< HEAD
    /* public function getIdEvent(): ?int
-=======
-    public function getIdEvent(): ?int
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
     {
         return $this->id_event;
     }
@@ -105,11 +80,7 @@ class Promotion
 
         return $this;
     }
-<<<<<<< HEAD
 */
-=======
-
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
     public function getEvent(): ?Event
     {
         return $this->event;

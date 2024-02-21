@@ -14,9 +14,7 @@ app_event_new:
     path: /new
     controller: App\Controller\EventController::new
     methods: ['GET', 'POST']
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+
 app_organisation_new:
     path: /add/organisation
     controller: App\Controller\OrganisationController::new
@@ -65,6 +63,10 @@ app_organisation_back_show:
   requirements:
     id: \d+  # Assurez-vous que l'ID est un nombre (expression régulière)
 
+acceuil_contrats:
+  path: /explorez_contrats
+  controller: App\Controller\ContratController::acceuil
+  methods: [GET]
 
 
 
@@ -78,8 +80,6 @@ app_organisation_back_show:
 
 
 
-=======
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
 
 app_event_delete:
     path: '/event/{id}/delete'
@@ -121,10 +121,7 @@ components_show:
 components_delete:
     path: /components-DELETE.html
     controller: App\Controller\EventController::delete
-<<<<<<< HEAD
-=======
->>>>>>> d6ce0593f781ea7856b4fd6b1a445d3cb5a82a65
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
+
 
 
 

@@ -3,14 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Promotion;
-use App\Form\PromotionType;
+
 use App\Repository\PromotionRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Form\PromotionType;
 #[Route('/promotion')]
 class PromotionController extends AbstractController
 {
@@ -43,10 +44,12 @@ class PromotionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_promotion_show', methods: ['GET'])]
-    public function show(Promotion $promotion): Response
+    public function show(Promotion $promotion,PromotionRepository $promotionRepository): Response
     {
         return $this->render('promotion/show.html.twig', [
             'promotion' => $promotion,
+            'promotions' => $promotionRepository->findAll(), // Pass promotions here if needed
+
         ]);
     }
 

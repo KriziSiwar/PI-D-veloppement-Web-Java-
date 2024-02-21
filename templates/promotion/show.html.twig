@@ -1,46 +1,51 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Promotion{% endblock %}
+{% extends 'base1.html.twig' %}
 
 {% block body %}
-    <h1>Promotion</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ promotion.id }}</td>
-            </tr>
-<<<<<<< HEAD
-            
-=======
-            <tr>
-                <th>Title</th>
-                <td>{{ promotion.title }}</td>
-            </tr>
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
-            <tr>
-                <th>QR_code</th>
-                <td>{{ promotion.QRCode }}</td>
-            </tr>
-            <tr>
-                <th>Discount</th>
-                <td>{{ promotion.discount }}</td>
-            </tr>
-            <tr>
-                <th>Id_event</th>
-<<<<<<< HEAD
-                <td>{{ promotion.Event }}</td>
-=======
-                <td>{{ promotion.idEvent }}</td>
->>>>>>> e7a942a627c11e9012e547f10deb81e0778f5c0c
-            </tr>
-        </tbody>
-    </table>
+<div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-lg-8">
+        <div class="card text-center">
+            <div class="card-body">
+                <a href="{{ path('app_promotion_new') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h5 class="card-title">Liste des promotions</h5>
 
-    <a href="{{ path('app_promotion_index') }}">back to list</a>
-
-    <a href="{{ path('app_promotion_edit', {'id': promotion.id}) }}">edit</a>
-
-    {{ include('promotion/_delete_form.html.twig') }}
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>QR Code</th>
+                            <th>Discount</th>
+                            <th>Event Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for promotion in promotions %}
+                            <tr>
+                                <td>{{ promotion.id }}</td>
+                                <td>{{ promotion.QR_code }}</td>
+                                <td>{{ promotion.discount }}</td>
+                        
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('app_promotion_edit', {'id': promotion.id}) }}">Modifier</a>
+                                    <form method="post" action="{{ path('app_promotion_delete', {'id': promotion.id}) }}" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promotion.id) }}">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette promotion ?')">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">Aucun enregistrement trouvé</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- End small tables -->
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
