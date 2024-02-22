@@ -70,7 +70,8 @@
                     <div class="col-lg-9 col-md-8">{{ app.user.firstName }} {{ app.user.lastName }}</div>
                   </div>
 
-                
+                                                        {% if app.user.roles is defined and 'ROLE_FREELANCER' in app.user.roles %}
+
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Job</div>
@@ -82,21 +83,42 @@
                     <div class="col-lg-3 col-md-4 label">Experience</div>
                     <div class="col-lg-9 col-md-8">{{app.user.Expertise}}</div>
                   </div>
-     <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Experience</div>
+
+
+                 <div class="row">
+                    <div class="col-lg-3 col-md-4 label">your Rate</div>
                     <div class="col-lg-9 col-md-8"><span class="badge bg-danger">{{ app.user.Rate | default('Not rated') }}</span></div>
                   </div>
 
-                 
+                 {% endif %}
+
                  <div class="row">
                     <div class="col-lg-3 col-md-4 label">Language</div>
-                    <di v class="col-lg-9 col-md-8"><span class="badge bg-success">{{ app.user.language | join(', ') }}</span>
+                    <span class="col-lg-9 col-md-8"><span class="badge bg-success">{{ app.user.language | join(', ') }}</span>
 
-</div>
+                  </div>
                   </div>
 
-                 
+                                                                            {% if app.user.roles is defined and 'ROLE_CLIENT' in app.user.roles %}
 
+
+  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Company name</div>
+                    <div class="col-lg-9 col-md-8">{{app.user.CompanyName}}</div>
+                  </div>
+                
+  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Company Description</div>
+                    <div class="col-lg-9 col-md-8">{{app.user.CompanyDescription}}</div>
+                  </div>
+                    <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Company  Website </div>
+                    <div class="col-lg-9 col-md-8">{{app.user.companyWebsite}}</div>
+                  </div>
+
+
+                 
+{% endif %}
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Phone</div>
                     <div class="col-lg-9 col-md-8">{{app.user.phone}}</div>

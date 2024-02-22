@@ -43,7 +43,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Sales <span>| Today</span></h5>
+                                    <h5 class="card-title">Money Spent on SkillHub <span>| Today</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -232,7 +232,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+                                    <h5 class="card-title">Users Joined today  <span>| Today</span></h5>
 
                                     <table class="table table-borderless datatable">
                                         <thead>
@@ -248,7 +248,7 @@
     {% for user in users %}
         <tr>
             <th scope="row"><a href="#">{{ user.id }}</a></th>
-            <td>{{ user.username }}</td>
+            <td>{{ user.FirstName }}</td>
             <td><a href="#" class="text-primary">{{ user.email }}</a></td>
 {% if 'ROLE_ADMIN' in user.roles %}
     <td>Admin</td>
@@ -292,15 +292,13 @@
                                 </div>
 
                                 <div class="card-body pb-0">
-                                    <h5 class="card-title">Top Selling <span>| Today</span></h5>
+                                    <h5 class="card-title">Top Client <span>| Today</span></h5>
 
                                     <table class="table table-borderless">
                                         <thead>
                                         <tr>
-                                            <th scope="col">Preview</th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Sold</th>
+                                            <th scope="col">Company name</th>
+                                            <th scope="col">Money spent</th>
                                             <th scope="col">Revenue</th>
                                         </tr>
                                         </thead>

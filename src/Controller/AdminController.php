@@ -13,6 +13,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+
+
+
+
+
+
+
+
+
+
+
+
 #[Route('/Admin')]
 class AdminController extends AbstractController
 {
@@ -22,34 +36,41 @@ class AdminController extends AbstractController
         // Get the currently logged in user
         $user = $this->getUser();
 
-        return $this->render('admin/index.html.twig', [
+        return $this->render('Admin/index.html.twig', [
             'users' => $userRepository->findAll(),
             'user' => $user,
         ]);
     }
 
     #[Route('/new', name: 'app_admin_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(['ROLE_ADMIN']);
-
-
+    
+            // Encode the password
+            $plainPassword = $form->get('plainPassword')->getData();
+            $encodedPassword = $passwordEncoder->encodePassword($user, $plainPassword);
+    
+            // Set the encoded password onto the User entity
+            $user->setPassword($encodedPassword);
+    
             $entityManager->persist($user);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->renderForm('Admin/new.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{id}', name: 'app_admin_show', methods: ['GET'])]
     public function show(User $user): Response
@@ -76,7 +97,7 @@ class AdminController extends AbstractController
             'form' => $form,
         ]);
     }
-
+/*
     #[Route('/{id}', name: 'app_admin_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -87,4 +108,7 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
     }
+*/
+
+
 }

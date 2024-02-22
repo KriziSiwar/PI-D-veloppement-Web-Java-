@@ -83,7 +83,7 @@ class UserControllerCrudController extends AbstractController
     
             $entityManager->flush();
     
-            return $this->redirectToRoute('app_user_controller_crud_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_controller_crud_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
     
         return $this->renderForm('user_controller_crud/edit.html.twig', [
