@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,9 +7,12 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>SkillHub Bootstrap Template - Index</title>
+
+
     <meta content="" name="description">
 
     <meta content="" name="keywords">
+    
 
     <!-- Favicons -->
     <link href="asset1/img/favicon.png" rel="icon">
@@ -58,24 +60,51 @@
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
                     <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                    <li><a class="nav-link scrollto" href="#team">Contracts</a></li>
+
+                    
+
+
+
+                    
+
+
+                     <li class="dropdown"><a href="#"><span>Contrat </span> <i class="bi bi-chevron-down"></i></a>
+     <ul>               
+         <li><a href="{{path('acceuil_contrats')}}">les contrats </a></li>
+           
+         
+         <li><a href="{{ path('app_organisation_index')}}">Organisations</a></li>
+        
+        
+     </ul>
+ </li>
+
+
+
+
                     <li><a href="blog.html">Blog</a></li>
-                    <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                     <li class="dropdown"><a href="#"><span> Events </span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="#">Drop Down 1</a></li>
-                            <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                            
+                            <li><a href="{{ path('app_event_new') }}">Create New Event</a></li>
+                            <li><a href="{{ path('app_event_new') }}">Manage Event</a></li>
+
+                            <li class="dropdown"><a href="#"><span>Manage Event Categories</span> <i class="bi bi-chevron-right"></i></a>
                                 <ul>
-                                    <li><a href="#">Deep Drop Down 1</a></li>
-                                    <li><a href="#">Deep Drop Down 2</a></li>
-                                    <li><a href="#">Deep Drop Down 3</a></li>
-                                    <li><a href="#">Deep Drop Down 4</a></li>
-                                     <li><a href="#">Deep Drop Down 4</a></li>
-                                    <li><a href="/explorez_contrats">Deep Drop Down 5</a></li>
+
+                                    <li><a href="#">Web Development</a></li>
+                                    <li><a href="#">Graphic Design</a></li>
+                                    <li><a href="#">Digital Marketing</a></li>
+                                    <li><a href="#">Content Writing</a></li>
+                                    <li><a href="#">Translation</a></li>
+                                    
                                 </ul>
                             </li>
-                            <li><a href="#">Drop Down 2</a></li>
-                            <li><a href="#">Drop Down 3</a></li>
-                            <li><a href="#">Drop Down 4</a></li>
+                            <li><a href="#">View Upcoming Events</a></li>
+                            <li><a href="#">View Past Events</a></li>
+                            <li><a href="#">Event Registration</a></li>
+                            <li><a href="#">Event Details</a></li>
+
                         </ul>
                     </li>
 
@@ -181,8 +210,33 @@
 
 {% endblock %}
 
-<!-- ======= Hero Section ======= -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% block body %}
+
+    <main id="main">
+
 
 
 
@@ -628,7 +682,7 @@
                             <h3 style="color: #65c600;">Starter Plan</h3>
                             <div class="price"><sup>$</sup>19<span> / mo</span></div>
                             <img src="asset1/img/pricing-starter.png" class="img-fluid" alt="">
-                            <ul>    
+                            <ul>
                                 <li>Aida dere</li>
                                 <li>Nec feugiat nisl</li>
                                 <li>Nulla at volutpat dola</li>

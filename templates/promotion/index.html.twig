@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-lg-8">
+        <div class="card text-center">
+            <div class="card-body">
+                <a href="{{ path('app_promotion_new') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h5 class="card-title">Liste des promotions</h5>
+
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>QR Code</th>
+                            <th>Discount</th>
+                            <th>Id Event</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for promotion in promotions %}
+                        <tr>
+                            <td>{{ promotion.id }}</td>
+                            <td>{{ promotion.QR_code }}</td>
+                            <td>{{ promotion.discount }}</td>
+                            <td>{{ promotion.event.id }}</td>
+                            <td>
+                                <a class="btn btn-success" href="{{ path('app_promotion_edit', {'id': promotion.id}) }}">Modifier</a>
+                                <a class="btn btn-danger" href="{{ path('app_promotion_delete', {'id': promotion.id}) }}">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5">Aucun enregistrement trouvé</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- End small tables -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

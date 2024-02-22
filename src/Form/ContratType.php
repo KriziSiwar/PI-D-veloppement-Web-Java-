@@ -2,11 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Organisation;
+use App\Entity\User;
 use App\Entity\Contrat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ContratType extends AbstractType
 {
@@ -19,7 +22,17 @@ class ContratType extends AbstractType
             ->add('statut')
             ->add('projet')
             ->add('freelancer')
-            ->add('ajouter',SubmitType::class)
+            ->add('organisation', EntityType::class, [
+                'class' => Organisation::class,
+                'choice_label' => 'id', 
+            ])
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'id', 
+            ])
+            ->add('date_creation')
+            ->add('description')
+            ->add('ajouter', SubmitType::class)
         ;
     }
 

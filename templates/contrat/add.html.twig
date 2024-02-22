@@ -64,6 +64,43 @@
                         </div>
                     </div>
 
+
+<!-- Champ organisation_id -->
+<div class="form-group row">
+    <label for="inputText" class="col-sm-4 col-form-label">organisation</label>
+    <div class="col-sm-8">
+        {{ form_widget(form.organisation, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.organisation, {'attr': {'class': 'text-danger'}}) }}
+    </div>
+</div>
+
+<!-- Champ user  -->
+<div class="form-group row">
+    <label for="inputText" class="col-sm-4 col-form-label">user_id</label>
+    <div class="col-sm-8">
+        {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.user, {'attr': {'class': 'text-danger'}}) }}
+    </div>
+</div>
+
+<!-- Champ date_creation -->
+<div class="form-group row">
+    <label for="inputText" class="col-sm-4 col-form-label"> date_creation</label>
+    <div class="col-sm-8">
+        {{ form_widget(form.date_creation, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.date_creation, {'attr': {'class': 'text-danger'}}) }}
+    </div>
+</div>
+
+<!-- Champ description -->
+<div class="form-group row">
+    <label for="inputText" class="col-sm-4 col-form-label">description</label>
+    <div class="col-sm-8">
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.description, {'attr': {'class': 'text-danger'}}) }}
+    </div>
+</div>
+
                     <!-- Bouton de soumission -->
                     <div class="form-group row justify-content-center">
                         {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-primary'}}) }}

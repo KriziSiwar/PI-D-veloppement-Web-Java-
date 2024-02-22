@@ -4,10 +4,10 @@
 {% block body %}
 
 <div class="row justify-content-center align-items-center" style="height: 100vh;">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="card text-center">
             <div class="card-body">
-                <a href="{{ path('contract/new') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <a href="{{ path('contract/new') }}" method="post"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
                 <h5 class="card-title">Liste des contrats</h5>
 
 
@@ -22,9 +22,13 @@
      <td>statut</td> <!-- Ajout du chevron fermant -->
      <td>projet</td>
      <td>freelancer</td>
+     <td>organisation_id</td>
+     <td>user_id</td>
+     <td>date_creation</td>
+     <td>description</td>
      <td>Modification</td>
      <td>Suppression</td> <!-- Ajout du chevron fermant -->
- </tr>
+       </tr>
         </thead>
                     <tbody>
                     {% for c in contrats %}
@@ -36,27 +40,47 @@
         <td>{{ c.statut }}</td> <!-- Correction de la balise -->
         <td>{{ c.projet }}</td>
         <td>{{ c.freelancer }}</td>
+       <td>{{ c.organistion}}</td>
+        <td>{{ c.user}}</td>
+        <td>{{ c.date_creation |date("Y-m-d")}}</td>
+        <td>{{ c.description}}</td>
+
         <td>
             <a class="btn btn-success" href="{{ path('contract/edit', {'id': c.id}) }}">Modifier</a>
         </td>
+        <form action="{{ path('contract/delete', {'id': c.id}) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
         <td>
-            <a class="btn btn-danger" href="{{ path('contract/delete', {'id': c.id}) }}">Supprimer</a>
+            <button type="submit" class="btn btn-danger">Supprimer</button>
         </td>
-    </tr>
-    {% endfor %}
- </tbody>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        </tr>
+        {% endfor %}
+          </tbody>
                 </table>
                 <!-- End small tables -->
 
             </div>
-        </div>
+            </div>
 
-    </div>
+           </div>
 
 
 
-</div>
-{% endblock %}
+            </div>
+            {% endblock %}
 
    
    

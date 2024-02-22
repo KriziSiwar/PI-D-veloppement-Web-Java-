@@ -3,63 +3,54 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity(repositoryClass: EventRepository::class)]
-
-
-
 class Event
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
-    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private string $title;
 
-    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    private string $description;
 
-
-    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    public ?\DateTimeInterface $start_date_time = null;
+    private \DateTimeInterface $start_date;
 
-
-    #[Assert\NotBlank]
-    #[Assert\GreaterThan(propertyPath: "start_date_time")]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    public ?\DateTimeInterface $end_date_time = null;
+    private \DateTimeInterface $end_date;
 
-    #[Assert\NotBlank]
-    #[ORM\Column(length: 255)]
-    private ?string $location = null;
-
-    #[Assert\NotBlank]
-    #[Assert\Range(min: 20, max: 100)]
     #[ORM\Column]
-    public ?int $number_participants = null;
+    private int $price=0;
 
-    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    private string $location;
 
-    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    private string $statut;
 
-    #[Assert\NotBlank]
-    #[Assert\Regex(
-        pattern: '/^[a-zA-Z]+$/',
-        message: 'La catégorie doit contenir uniquement des lettres.'
-    )]
     #[ORM\Column(length: 255)]
-    private ?string $category = null;
+    private string $image="";
+
+    #[ORM\Column]
+    private int $nb_participant=0;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: Promotion::class)]
+    private Collection $Promotion;
+
+    public function __construct()
+    {
+        $this->Promotion = new ArrayCollection();
+
+    }
 
     public function getId(): ?int
     {
@@ -90,26 +81,37 @@ class Event
         return $this;
     }
 
-    public function getStartDateTime(): ?\DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->start_date_time;
+        return $this->start_date;
     }
 
-    public function setStartDateTime(\DateTimeInterface $start_date_time): static
+
+    public function setStartDate(?\DateTimeInterface $startDate): void
     {
-        $this->start_date_time = $start_date_time;
+        $this->start_date = $startDate;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->end_date;
+    }
+
+    public function setEndDate(\DateTimeInterface $end_date): static
+    {
+        $this->end_date = $end_date;
 
         return $this;
     }
 
-    public function getEndDateTime(): ?\DateTimeInterface
+    public function getPrice(): ?int
     {
-        return $this->end_date_time;
+        return $this->price;
     }
 
-    public function setEndDateTime(\DateTimeInterface $end_date_time): static
+    public function setPrice(int $price): static
     {
-        $this->end_date_time = $end_date_time;
+        $this->price = $price;
 
         return $this;
     }
@@ -126,26 +128,14 @@ class Event
         return $this;
     }
 
-    public function getNumberParticipants(): ?int
+    public function getStatut(): ?string
     {
-        return $this->number_participants;
+        return $this->statut;
     }
 
-    public function setNumberParticipants(int $number_participants): static
+    public function setStatut(string $statut): static
     {
-        $this->number_participants = $number_participants;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
+        $this->statut = $statut;
 
         return $this;
     }
@@ -162,15 +152,50 @@ class Event
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getNbParticipant(): ?int
     {
-        return $this->category;
+        return $this->nb_participant;
     }
 
-    public function setCategory(string $category): static
+    public function setNbParticipant(int $nb_participant): static
     {
-        $this->category = $category;
+        $this->nb_participant = $nb_participant;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Promotion>
+     */
+    public function getPromotion(): Collection
+    {
+        return $this->Promotion;
+    }
+
+    public function addPromotion(Promotion $promotion): static
+    {
+        if (!$this->Promotion->contains($promotion)) {
+            $this->Promotion->add($promotion);
+            $promotion->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion): static
+    {
+        if ($this->Promotion->removeElement($promotion)) {
+            // set the owning side to null (unless already changed)
+            if ($promotion->getEvent() === $this) {
+                $promotion->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

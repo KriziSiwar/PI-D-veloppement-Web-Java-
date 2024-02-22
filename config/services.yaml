@@ -23,5 +23,5 @@ services:
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
-   
+    # please note that last definitions always *replace* previo○services:
+    # configure les alias pour les types de formulair

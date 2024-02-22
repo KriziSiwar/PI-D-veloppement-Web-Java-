@@ -23,6 +23,9 @@ class AssignedJobs
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    #[ORM\ManyToOne(inversedBy: 'assigned_Jobs')]
+    private ?Contrat $no = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class AssignedJobs
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getNo(): ?Contrat
+    {
+        return $this->no;
+    }
+
+    public function setNo(?Contrat $no): static
+    {
+        $this->no = $no;
 
         return $this;
     }
