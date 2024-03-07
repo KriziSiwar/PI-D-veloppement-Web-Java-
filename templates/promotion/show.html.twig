@@ -1,0 +1,51 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+
+<div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-lg-8">
+        <div class="card text-center">
+            <div class="card-body">
+                <a href="{{ path('app_promotion_new') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h5 class="card-title">Liste des promotions</h5>
+
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>QR Code</th>
+                            <th>Discount</th>
+                            <th>Event Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for promotion in promotions %}
+                            <tr>
+                                <td>{{ promotion.id }}</td>
+                                <td>{{ promotion.QR_code }}</td>
+                                <td>{{ promotion.discount }}</td>
+                        
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('app_promotion_edit', {'id': promotion.id}) }}">Modifier</a>
+                                    <form method="post" action="{{ path('app_promotion_delete', {'id': promotion.id}) }}" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promotion.id) }}">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette promotion ?')">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">Aucun enregistrement trouvé</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- End small tables -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

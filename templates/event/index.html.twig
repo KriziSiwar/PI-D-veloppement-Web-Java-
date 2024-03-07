@@ -1,0 +1,252 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Event index{% endblock %}
+{% block search %}
+ <div class="search-bar">
+                    <form class="search-form d-flex align-items-center" method="POST" action="{{path('app_search')}}">
+                        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                    </form>
+                </div><!-- End Search Bar -->
+                {% endblock %}
+{% block body %}
+<style>
+        /* Custom styles */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+             margin-top: 30px;
+            margin-bottom: 20px;
+         
+        }
+        .table th, .table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f2f2f2;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .table tbody tr:hover {
+            background-color: #ddd;
+        }
+        .actions a {
+            margin-right: 5px;
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+        .actions a:hover {
+            color: #0056b3;
+        }
+        .no-records {
+            text-align: center;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .filter-container form {
+            margin: 0 10px;
+        }
+
+        select, input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input[type="submit"]:focus {
+            outline: none;
+            border-color: #66afe9;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <h1>Event index</h1>
+<br>
+<br>
+<div id="stats-container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Events & Promos</div>
+                <div class="card-body">
+                    <canvas id="bar-chart" style="margin-left:300px;" width="200" height="150"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Events vs Promos</div>
+                <div class="card-body">
+                    <canvas id="pie-chart" width="200" height="150"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Bar chart
+    var ctx1 = document.getElementById('bar-chart').getContext('2d');
+    var chart1 = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['Events', 'Promos'],
+            datasets: [{
+                label: 'S/R',
+                backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                borderWidth: 1,
+                data: [{{ events|length }}, {{ promos|length }}]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        fontColor: '#ccc'
+                    },
+                    gridLines: {
+                        color: '#ccc'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: '#ccc'
+                    },
+                    gridLines: {
+                        color: '#ccc'
+                    }
+                }]
+            },
+            legend: {
+                labels: {
+                    fontColor: '#ccc'
+                }
+            }
+        }
+    });
+
+    // Pie chart
+    var ctx2 = document.getElementById('pie-chart').getContext('2d');
+    var chart2 = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['Events', 'Promos'],
+            datasets: [{
+                label: 'Number',
+                backgroundColor: ['#d9534f', '#f0ad4e'],
+                borderColor: '#fff',
+                data: [{{ events|length }}, {{ promos|length }}]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: 'Hebergement vs Reservations',
+                fontColor: '#ccc'
+            },
+            legend: {
+                labels: {
+                    fontColor: '#ccc'
+                }
+            }
+        }
+    });
+</script>
+
+    <table class="table" style="width:60%;margin-left:300px;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Start_date</th>
+                <th>End_date</th>
+                <th>Price</th>
+                <th>Location</th>
+                <th>Statut</th>
+                <th>Image</th>
+                <th>Nb_participant</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.price }}</td>
+                <td>{{ event.location }}</td>
+                <td>{{ event.statut }}</td>
+                <td><img src="{{asset(event.image)}}" height="100" width="100" ></td>
+                <td>{{ event.nbParticipant }}</td>
+                <td>
+                    <a href="{{ path('app_promotion_new', {'id': event.id}) }}">Add Promo</a>
+                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">Edit</a>
+                    {#<a href="{{ path('app_event_delete', {'id': event.id, 'token': csrf_token('delete' ~ event.id)}) }}">Delete</a>#}
+               <form action="{{ path('app_event_delete', {'id': event.id}) }}" method="post" style="display: inline-block;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                    <button type="submit" style="border: none; background: none; color: red; padding: 0; margin: 0; cursor: pointer;">Delete</button>
+                </form>
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_event_new') }}">Create new</a>
+    <a style="margin-left:300px;" href="{{ path('app_pdf') }}">Pdf Export</a>
+{% endblock %}

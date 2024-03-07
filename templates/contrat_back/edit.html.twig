@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+ <br>
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+           
+<br>
+                <h5 class="card-title">Modifier un contrat</h5>
+
+
+                <!-- Début du formulaire -->
+                {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+                <!-- Champ date_debut -->
+                <div class="form-group row">
+                    <label for="inputText" class="col-sm-4 col-form-label">Date début</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.date_debut, {'attr': {'class': 'form-control', 'placeholder': 'Date début'}}) }}
+                        {{ form_errors(form.date_debut, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
+                </div>
+
+                <!-- Champ date_fin -->
+                <div class="form-group row">
+                    <label for="inputText" class="col-sm-4 col-form-label">Date fin</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.date_fin, {'attr': {'class': 'form-control', 'placeholder': 'Date fin'}}) }}
+                        {{ form_errors(form.date_fin, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
+                </div>
+
+                <!-- Champ montant -->
+                <div class="form-group row">
+                    <label for="inputText" class="col-sm-4 col-form-label">Montant</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.montant, {'attr': {'class': 'form-control', 'placeholder': 'Montant'}}) }}
+                        {{ form_errors(form.montant, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
+                </div>
+
+                <!-- Champ statut -->
+                <div class="form-group row">
+                    <label for="inputText" class="col-sm-4 col-form-label">Statut</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.statut, {'attr': {'class': 'form-control', 'placeholder': 'Statut'}}) }}
+                        {{ form_errors(form.statut, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
+                </div>
+
+                <!-- Champ projet -->
+                <div class="form-group row">
+                    <label for="inputText" class="col-sm-4 col-form-label">Projet</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.projet, {'attr': {'class': 'form-control', 'placeholder': 'Projet'}}) }}
+                        {{ form_errors(form.projet, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
+                </div>
+
+                <!-- Champ freelancer -->
+                <div class="form-group row">
+                    <label for="inputText" class="col-sm-4 col-form-label">Freelancer</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.freelancer, {'attr': {'class': 'form-control', 'placeholder': 'Freelancer'}}) }}
+                        {{ form_errors(form.freelancer, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
+                </div>
+
+               
+               
+               
+               
+               
+               
+
+                <!-- Fin du formulaire -->
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+{% endblock %}

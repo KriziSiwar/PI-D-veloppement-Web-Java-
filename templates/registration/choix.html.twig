@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+ <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+
+
+<style>
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  text-align: center;
+}
+
+.box {
+  width: 300px;
+  height: 200px;
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 20px;
+  position: relative;
+  transition: all 0.3s ease; /* This line adds a smooth transition effect */
+}
+
+.box:hover {
+  transform: scale(1.1); /* This line scales up the box when hovered */
+}
+
+.box i,svg {
+  font-size: 2em;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+}
+.navbar {
+  width: 100%;
+  background-color: #ffff;
+  padding: 10px 0;
+  text-align: left;
+  position: absolute;
+  top: 0;
+}
+h1 {
+  font-family: "Lato", sans-serif;
+}
+
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div class="navbar">
+  <h1 style="margin-left: 10px;">SkillHub</h1>
+</div>
+<h1>Join as a client or freelancer</h1>
+
+<section>
+<a href="{{ path('app_register') }}?role=client">
+
+<div class="box"> 
+
+<svg xmlns="http://www.w3.org/2000/svg" width="50" aria-hidden="true" data-name="Layer 1" viewBox="0 0 24 24" role="img">
+<path fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.28 21h-6.9a1.6 1.6 0 01-1.73-1.5v-4a1.6 1.6 0 011.73-1.5h6.9A1.59 1.59 0 0121 15.5v4a1.66 1.66 0 01-1.72 1.5z"></path><path fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.9 12h-2.15a.65.65 0 00-.72.66V14h3.59v-1.34a.65.65 0 00-.72-.66z"></path><line x1="10.65" x2="21" y1="17.29" y2="17.29" fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line><circle cx="10.04" cy="5.73" r="2.73" fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></circle><path fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 18.45v-.9a7 7 0 017-7h.09a6.73 6.73 0 011.91.27"></path></svg> <br>
+
+  <br>
+  <br>
+  <h2>I’m a client, hiring for a project</h2>
+</div>
+
+  </a>
+<a href="{{ path('app_register') }}?role=freelancer">
+
+<div class="box">
+<svg xmlns="http://www.w3.org/2000/svg" width=50 aria-hidden="true" data-name="Layer 1" viewBox="0 0 24 24" role="img"><polygon fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" points="19.38 21 8.38 21 10 14 21 14 19.38 21"></polygon><circle cx="14.69" cy="17.5" r=".5" fill="var(--icon-color, #001e00)" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="9.43" x2="5.99" y1="21" y2="21" fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line><circle cx="10.04" cy="5.73" r="2.73" fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></circle><path fill="none" vector-effect="non-scaling-stroke" stroke="var(--icon-color, #001e00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 18.45v-.9a7 7 0 017-7h.09a6.94 6.94 0 013.79 1.12"></path></svg>  <br>
+  <br>
+  <br>
+<h2>I’m a freelancer, looking for work</h2>
+
+</div>
+  </a>
+
+</section>
+<p style="margin-top: 20px;">Already have an account? <a href="#">Log In</a></p>
+
+</body>
+</html>

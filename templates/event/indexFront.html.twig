@@ -1,0 +1,103 @@
+{% extends 'base1.html.twig' %}
+{% block title %}Event index{% endblock %}
+
+{% block body %}
+    <h1>Event index</h1>
+
+    <div class="card-container">
+        {% for event in events %}
+            <div class="card">
+                <img src="{{asset(event.image)}}" width="250" height="300" alt="{{ event.title }}" class="card-image">
+                <div class="card-content">
+                    <h2>{{ event.title }}</h2>
+                    <p>{{ event.description }}</p>
+                    <p><strong>Start Date:</strong> {{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</p>
+                    <p><strong>End Date:</strong> {{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</p>
+                    <p><strong>Price:</strong> {{ event.price }}</p>
+                    <p><strong>Location:</strong> {{ event.location }}</p>
+                    <p><strong>Status:</strong> {{ event.statut }}</p>
+                    <p><strong>Number of Participants:</strong> {{ event.nbParticipant }}</p>
+                   
+                </div>
+            </div>
+        {% else %}
+            <p class="no-records">No records found</p>
+        {% endfor %}
+    </div>
+
+    
+    <style>
+    .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 300px;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+    width: 50%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-content h2 {
+    margin-top: 0;
+}
+
+.card-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.no-records {
+    text-align: center;
+}
+
+.create-button {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    </style>
+{% endblock %}

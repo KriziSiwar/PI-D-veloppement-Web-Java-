@@ -1,0 +1,171 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+ 
+
+
+
+
+
+
+<div class="col-xl-8" style="padding-top:100px;">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="false" role="tab" tabindex="-1">Overview</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="true" role="tab">Edit Profile</button>
+                </li>
+
+         
+              </ul>
+              <div class="tab-content pt-2">
+
+                  <!-- Profile Edit Form -->
+              
+                              </div>
+   {% if formType == 'freelance' %}
+               {{ form_start(completeRegistrationForm) }}
+                                   {{ form_errors(completeRegistrationForm.Phone) }}
+
+                <div class="col-md-12" style="">
+                  <div class="form-floating">
+                                  {{ form_widget(completeRegistrationForm.JobTitle) }}
+
+                    <label for="floatingName">Job TiTle </label>
+                  </div>
+                </div>
+              
+               
+                <div class="col-12">
+                  <div class="form-floating">
+                    {{form_widget(completeRegistrationForm.ProfessionalOverview)}}
+                    <label for="floatingTextarea">Professional Overview</label>
+                  </div>
+                </div>
+            
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                   {{form_widget((completeRegistrationForm.Expertise))}}
+                    <label for="floatingSelect">Experience </label>
+                  </div>
+                
+                </div>
+                <div class="col-md-2">
+                  <div class="form-floating">
+{{form_widget((completeRegistrationForm.Phone))}}
+                    <label for="floatingZip">Phone Number</label>       
+                    
+                                   {{ form_errors(completeRegistrationForm.Phone) }}
+
+                  </div>
+                  <label >language(s)</label>
+
+
+              <div class="row mb-3">
+                  <div class="col-sm-10" style="width:220px">
+                 {{form_widget((completeRegistrationForm.language))}}
+
+                  </div>
+                </div>
+
+
+
+
+
+           <div class="row mb-3">
+                                      <label for="floatingZip">Profile Picture</label>       
+
+               <div class="form-floating">
+    {{ form_widget(completeRegistrationForm.ProfilePicture, {'attr': {'id': 'file-input'}}) }}
+    <img id="preview"   class="rounded-circle">
+</div>
+
+                </div>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+                {{form_end(completeRegistrationForm)}}
+
+
+
+                
+        {% else %}
+            {{ form_start(completeRegistrationForm) }}
+
+            <div class="form-floating">
+                {{ form_widget(completeRegistrationForm.Phone) }}
+                <label for="floatingName">Phone</label>
+                                                               {{ form_errors(completeRegistrationForm.Phone) }}
+
+            </div>
+            <div class="form-floating">
+                {{ form_widget(completeRegistrationForm.CompanyName) }}
+                <label for="floatingTextarea">Company Name</label>
+            </div>
+                 
+                <div class="col-12">
+                  <div class="form-floating">
+                    {{form_widget(completeRegistrationForm.CompanyDescription)}}
+                    <label for="floatingTextarea">Company Description</label>
+                  </div></div>
+
+    <div class="col-12">
+                  <div class="form-floating">
+                    {{form_widget(completeRegistrationForm.companyWebsite)}}
+                    <label for="floatingTextarea">Company Website</label>
+                  </div></div>
+
+
+ <div class="col-md-12" style="">
+                  <div class="form-floating">
+                                  {{ form_widget(completeRegistrationForm.industry) }}
+
+                    <label for="floatingName">industry </label>
+                  </div>
+                </div>
+
+
+
+
+
+            <label>Company Logo</label>
+
+            <div class="form-floating">
+                {{ form_widget(completeRegistrationForm.companyLogo, {'attr': {'id': 'file-input'}}) }}
+                <img id="preview" class="rounded-circle">
+            </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+        {{ form_end(completeRegistrationForm) }}
+                {% endif %}
+          
+
+                <div class="tab-pane fade pt-3" id="profile-change-password" role="tabpanel">
+                  <!-- Change Password Form -->
+               
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+{% endblock %}

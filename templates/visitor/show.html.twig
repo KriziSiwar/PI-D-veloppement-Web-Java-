@@ -1,0 +1,92 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+
+<div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-lg-8">
+        <div class="card text-center">
+            <div class="card-body">
+                <a href="{{ path('app_organisation_new') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h5 class="card-title">Liste des organisation</h5>
+
+
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                     <tr>
+     <td>id</td>
+     <td>nom</td>
+     <td>adresse</td>
+     <td>telephone</td>
+     <td>email</td> <!-- Ajout du chevron fermant -->
+     <td>contact</td>
+     <td>domaine Activite</td>
+     <td>Modification</td>
+     <td>Suppression</td> <!-- Ajout du chevron fermant -->
+       </tr>
+        </thead>
+                    <tbody>
+                    {% for o in organisation %}
+                        
+        <td>{{ o.id }}</td>
+        <td>{{ o.nom}}</td>
+        <td>{{ o.adresse }}</td>
+        <td>{{ o.telephone }}</td>
+        <td>{{ o.email}}</td> <!-- Correction de la balise -->
+        <td>{{ o.contact }}</td>
+        <td>{{ o.domaine_activite }}</td>
+        
+       
+       
+       
+
+        <td>
+            <a class="btn btn-success" href="{{ path('app_organisation_edit', {'id': o.id}) }}">Modifier</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="{{ path('app_organisation_delete', {'id': o.id}) }}">Supprimer</a>
+        </td>
+        </tr>
+        {% endfor %}
+          </tbody>
+                </table>
+                <!-- End small tables -->
+
+            </div>
+            </div>
+
+           </div>
+
+
+
+            </div>
+            {% endblock %}
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

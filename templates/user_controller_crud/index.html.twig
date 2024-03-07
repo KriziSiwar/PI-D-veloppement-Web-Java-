@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>ProfilePicture</th>
+                <th>JobTitle</th>
+                <th>ProfessionalOverview</th>
+                <th>Expertise</th>
+                <th>Phone</th>
+                <th>Rate</th>
+                <th>Language</th>
+                <th>CompanyName</th>
+                <th>CompanyDescription</th>
+                <th>Industry</th>
+                <th>CompanyWebsite</th>
+                <th>CompanyLogo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.FirstName }}</td>
+                <td>{{ user.LastName }}</td>
+                <td>{{ user.ProfilePicture }}</td>
+                <td>{{ user.JobTitle }}</td>
+                <td>{{ user.ProfessionalOverview }}</td>
+                <td>{{ user.Expertise }}</td>
+                <td>{{ user.Phone }}</td>
+                <td>{{ user.rate }}</td>
+                <td>{{ user.language ? user.language|json_encode : '' }}</td>
+                <td>{{ user.CompanyName }}</td>
+                <td>{{ user.CompanyDescription }}</td>
+                <td>{{ user.industry }}</td>
+                <td>{{ user.companyWebsite }}</td>
+                <td>{{ user.companyLogo }}</td>
+                <td>
+                    <a href="{{ path('app_user_controller_crud_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_user_controller_crud_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="19">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

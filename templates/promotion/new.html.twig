@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div style="display: flex;align-items: center;justify-content: center;margin-top: 150px; padding: 10px;">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Add Promotion Backend ADMIN</h5>
+
+                <!-- General Form Elements -->
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.QR_code) }}
+                    {{ form_widget(form.QR_code, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.QR_code, {'attr': {'class': 'text-danger'}}) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.discount) }}
+                    {{ form_widget(form.discount, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.discount, {'attr': {'class': 'text-danger'}}) }}
+                </div>
+
+                
+
+                <!-- Other form fields -->
+
+                <div class="form-group">
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

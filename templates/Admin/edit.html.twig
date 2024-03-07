@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Edit User</h1>
+
+<div class="row" style="padding-top:100px;">
+    <div class="col-lg-6 offset-lg-3">
+
+          <div class="card">
+            <div class="card-body">
+
+
+    {{ form_start(form) }}
+
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label">Your First Name</label>
+                    {{ form_widget(form.FirstName) }}
+                </div>
+                
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label">Your Last Name</label>
+                    {{ form_widget(form.LastName) }}
+                </div>
+                <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Email</label>
+        {{ form_widget(form.email) }}
+                </div>
+               
+
+
+ <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Profile Picture</label>
+        {{ form_widget(form.ProfilePicture) }}
+                </div>
+
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+    {{ form_widget(form._token) }}
+{{ form_end(form, {'render_rest': false}) }}
+
+
+{% if app.user %}
+    <form action="{{ path('app_user_controller_crud_delete', {'id': app.user.id}) }}" method="POST">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
+        <button type="submit">Delete Account</button>
+    </form>
+{% endif %}
+
+
+    </div>
+    </div>
+    </div>
+
+{% endblock %}
