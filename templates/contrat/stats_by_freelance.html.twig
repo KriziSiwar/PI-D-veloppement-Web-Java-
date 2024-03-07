@@ -1,0 +1,38 @@
+{# stats_by_freelance.html.twig #}
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+<br>
+<br>
+<br>
+    <div id="chart_div"></div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Freelance');
+            data.addColumn('number', 'Nombre de contrats');
+            data.addRows([
+                {% for freelance, contratCount in stats %}
+                    ['{{ freelance }}', {{ contratCount }}],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Répartition des contrats par freelance',
+                titleTextStyle: {
+                    color: '#009900', // Définir la couleur du titre
+                    fontSize: 20, // Définir la taille de la police du titre
+                    bold: true // Définir le style en gras du titre
+                }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}

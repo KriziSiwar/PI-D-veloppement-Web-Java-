@@ -1,0 +1,38 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+    <div id="div_chart"></div>
+
+    {# Débogage des données #}
+    {% dump(stats) %}
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Projet', 'Nombre de contrats'],
+                {% for projet, count in stats %}
+                    ['{{ projet }}', {{ count }}],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Répartition des contrats par projet',
+                height: 500,
+                width: 900,
+                titleTextStyle: {
+                    bold: true,
+                    color: '#009900',
+                    italic: true,
+                    fontName: 'Arial',
+                    fontSize: 20
+                }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('div_chart'));
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}

@@ -8,14 +8,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Default;
+use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Workflow\WorkflowInterface;
 #[ORM\Entity(repositoryClass: ContratRepository::class)]
 class Contrat
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+   // #[Workflow\Workflow(name: "contrat", type: "state_machine")]
+    //private WorkflowInterface $workflow;
+
     private ?int $id = null;
 
    #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -26,6 +31,7 @@ public ?\DateTimeInterface $date_debut;
     #[Assert\NotBlank(message:"La date de fin est requise")]
     #[Assert\GreaterThan(propertyPath:"date_debut", message:"La date de fin doit être après la date de début")]
     public ?\DateTimeInterface $date_fin;
+
 
   
     #[ORM\Column(nullable: true)]
@@ -71,6 +77,9 @@ public ?\DateTimeInterface $date_debut;
     #[ORM\ManyToMany(targetEntity: PostedJobs::class)]
     private Collection $posted_jobs_id;
 
+    //#[ORM\Column(type:"boolean", options: default ::false)]
+    private ?bool $paye = false;
+
     public function __construct()
     {
         $this->assigned_Jobs = new ArrayCollection();
@@ -96,11 +105,11 @@ public ?\DateTimeInterface $date_debut;
         return $this;
     }
 
-   /* public function getDateFin(): ?\DateTimeInterface
+    public function getDateFin(): ?\DateTimeInterface
     {
         return $this->date_fin;
     }
-*/
+
     public function setDateFin(\DateTimeInterface $date_fin): static
     {
         $this->date_fin = $date_fin;
@@ -172,13 +181,19 @@ public ?\DateTimeInterface $date_debut;
     {
         return $this->date_creation;
     }
-
+    public function isPaiementClickable(): bool
+    {
+        return $this->date_fin== new \DateTime('today');
+    }
     public function setDateCreation(): static
     {
         $this->date_creation = new \DateTime();
 
         return $this;
     }
+   
+    
+
 
     public function getDescription(): ?string
     {
@@ -263,8 +278,37 @@ public ?\DateTimeInterface $date_debut;
     }
 
 
-public function __toString()
+/*public function __toString()
 {
     return $this->getOrganisation();
+}*/
+public function __toString()
+{
+    return $this->getId();
 }
+
+public function isPaye(): ?bool
+{
+    return $this->paye;
+}
+
+public function setPaye(bool $paye): static
+{
+    $this->paye = $paye;
+
+    return $this;
+}
+private $boutonsDesactives = false;
+
+    public function getBoutonsDesactives(): ?bool
+    {
+        return $this->boutonsDesactives;
+    }
+
+    public function setBoutonsDesactives(bool $boutonsDesactives): self
+    {
+        $this->boutonsDesactives = $boutonsDesactives;
+
+        return $this;
+    }
 }

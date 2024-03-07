@@ -1,0 +1,43 @@
+{# templates/contract/history.html.twig #}
+
+{% extends 'base1.html.twig' %}
+
+{% block title %}Historique des modifications du contrat{% endblock %}
+
+{% block body %}
+    <h1>Historique des modifications du contrat</h1>
+    <p>Contrat ID : {{ contract.id }}</p>
+    
+    <h2>Modifications apportées :</h2>
+    <ul>
+        {% for modification in modificationHistory %}
+            <li>
+                {{ modification.timestamp|date('Y-m-d H:i:s') }} : {{ modification.description }}
+            </li>
+        {% endfor %}
+    </ul>
+    <div id="modification-history"></div>
+
+<script>
+    // Utilisez AJAX pour appeler l'action du contrôleur Symfony qui récupère l'historique des modifications
+    $.ajax({
+        url: "{{ path('get_modification_history', {'id': contract.id}) }}",
+        type: "GET",
+        success: function(response) {
+            // Affichez l'historique des modifications dans votre vue Twig
+            var historyHtml = '<h2>Historique des modifications du contrat</h2>';
+            historyHtml += '<ul>';
+            response.forEach(function(modification) {
+                historyHtml += '<li>' + modification.timestamp + ' : ' + modification.description + '</li>';
+            });
+            historyHtml += '</ul>';
+            $('#modification-history').html(historyHtml);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+            $('#modification-history').html('<p>Une erreur s\'est produite lors du chargement de l\'historique des modifications.</p>');
+        }
+    });
+</script>
+
+{% endblock %}

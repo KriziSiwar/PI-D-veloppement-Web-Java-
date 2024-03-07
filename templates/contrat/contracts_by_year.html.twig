@@ -1,0 +1,41 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Répartition des contrats par année{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+    <div id="pie_chart" style="width: 900px; height: 500px;"></div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Année', 'Nombre de contrats'],
+                {% for annee, nombreContrats in stats %}
+                    ['{{ annee }}', {{ nombreContrats }}],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Répartition des contrats par année (2017-2024)',
+                height: 500,
+                width: 900,
+                titleTextStyle: {
+                    bold: true,
+                    color: '#009900',
+                    italic: true,
+                    fontName: 'Arial',
+                    fontSize: 20
+                }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}

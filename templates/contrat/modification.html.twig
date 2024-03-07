@@ -1,0 +1,32 @@
+{% extends 'base1.html.twig' %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('styles.css') }}">
+{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1>Historique des modifications du contrat</h1>
+
+{% if historiqueModifications is not empty %}
+    <ul class="modification-list">
+        {% for modification in historiqueModifications|sort((a, b) => b.timestamp|date('U') <=> a.timestamp|date('U')) %}
+            <li class="modification-item">
+                <span class="field">Champ modifié :</span> {{ modification.fieldName }} <br>
+                <span class="old-value">Ancienne valeur :</span> {{ modification.oldValue }} <br>
+                <span class="new-value">Nouvelle valeur :</span> {{ modification.newValue }} <br>
+                <span class="timestamp">Date de modification :</span> {{ modification.timestamp ? modification.timestamp|date('Y-m-d H:i:s') : 'N/A' }} <br>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucune modification n'a été enregistrée pour ce contrat.</p>
+{% endif %}
+
+{% endblock %}

@@ -73,7 +73,17 @@
            
          
          <li><a href="{{ path('app_organisation_index')}}">Organisations</a></li>
-        
+        <li class="dropdown"><a href="#"><span>Statistiques </span> <i class="bi bi-chevron-right"></i></a>
+                                <ul>
+
+                                    <li><a href="{{path('app_mon_year')}}">Repartition par annee</a></li>
+                                    <li><a href="{{path('app_mon_stats')}}">repartition par projet</a></li>
+                                    <li><a href="{{path('app_stats_by_organisation')}}">repartition par organisation</a></li>
+                                    <li><a href="{{path('app_stats_by_montant')}}">repartition par montant </a></li>
+                                    <li><a href="{{path('app_stats_organisation')}}">repartition par domaine d'activite n</a></li>
+                                    
+                                </ul>
+                            </li>
         
      </ul>
  </li>
