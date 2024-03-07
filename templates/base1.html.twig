@@ -117,36 +117,56 @@
 
                         </ul>
                     </li>
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
 
                     
                     
                     {% else %}
                     <li><a class="nav-link scrollto" href="{{ path('app_login') }}">Log In</a></li>
 
-{% endif %}
+                    {% endif %}
                     
                     
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-<li class="nav-item dropdown pe-3" style="width:100px;">
+<li class="nav-item dropdown pe-3" >
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" style="padding-right:100px">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" style="width:40px">
+
+{% if app.user.roles is defined and 'ROLE_FREELANCER' in app.user.roles %}
+    {% set profilePicture = app.user.ProfilePicture %}
+    {% if profilePicture is null %}
+        {% set profilePicture = 'uploads/profilepicture.png' %}
+    {% endif %}
+    <img src="{{ asset(profilePicture) }}" class="rounded-circle" style="width:50px;height:50px;">
+{% elseif app.user.roles is defined and 'ROLE_CLIENT' in app.user.roles %}
+    {% set companyLogo = app.user.companyLogo %}
+    {% if companyLogo is null %}
+        {% set companyLogo = 'uploads/profilepicture.png' %}
+    {% endif %}
+    <img src="{{ asset(companyLogo) }}" class="rounded-circle" style="width:50px;height:50;">
+{% endif %}
+
+
+
+
+
+
     <span class="d-none d-md-block dropdown-toggle ps-2">{{ app.user.firstName | slice(0, 1) }}. {{ app.user.lastName }}</span>
               </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"style="padding-right:10px" >
             <li class="dropdown-header">
     <h6>{{ app.user.firstName }} {{ app.user.lastName }}</h6>
-              <span>Web Designer</span>
+              <span>{{app.user.JobTitle}}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{{ path('app_user_controller_crud_show', {'id': app.user.id}) }}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -269,7 +289,7 @@
 
                 <header class="section-header">
                     <h2>Our Values</h2>
-                    <p>Odit est perspiciatis laborum et dicta</p>
+                    <p>{{app.user.ProfilePicture}}</p>
                 </header>
 
                 <div class="row">

@@ -46,13 +46,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $JobTitle = null;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Contrat::class)]
-    private Collection $no;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ProfessionalOverview = null;
 
-    public function __construct()
-    {
-        $this->no = new ArrayCollection();
-    }
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Expertise = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $Phone = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $rate = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $language = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $CompanyName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $CompanyDescription = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $industry = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $companyWebsite = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $companyLogo = null;
 
     public function getId(): ?int
     {
@@ -191,32 +213,122 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Contrat>
-     */
-    public function getNo(): Collection
+    public function getProfessionalOverview(): ?string
     {
-        return $this->no;
+        return $this->ProfessionalOverview;
     }
 
-    public function addNo(Contrat $no): static
+    public function setProfessionalOverview(?string $ProfessionalOverview): static
     {
-        if (!$this->no->contains($no)) {
-            $this->no->add($no);
-            $no->setUserId($this);
-        }
+        $this->ProfessionalOverview = $ProfessionalOverview;
 
         return $this;
     }
 
-    public function removeNo(Contrat $no): static
+    public function getExpertise(): ?string
     {
-        if ($this->no->removeElement($no)) {
-            // set the owning side to null (unless already changed)
-            if ($no->getUserId() === $this) {
-                $no->setUserId(null);
-            }
-        }
+        return $this->Expertise;
+    }
+
+    public function setExpertise(?string $Expertise): static
+    {
+        $this->Expertise = $Expertise;
+
+        return $this;
+    }
+
+    public function getPhone(): ?int
+    {
+        return $this->Phone;
+    }
+
+    public function setPhone(?int $Phone): static
+    {
+        $this->Phone = $Phone;
+
+        return $this;
+    }
+
+    public function getRate(): ?int
+    {
+        return $this->rate;
+    }
+
+    public function setRate(?int $rate): static
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?array
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?array $language): static
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getCompanyName(): ?string
+    {
+        return $this->CompanyName;
+    }
+
+    public function setCompanyName(?string $CompanyName): static
+    {
+        $this->CompanyName = $CompanyName;
+
+        return $this;
+    }
+
+    public function getCompanyDescription(): ?string
+    {
+        return $this->CompanyDescription;
+    }
+
+    public function setCompanyDescription(?string $CompanyDescription): static
+    {
+        $this->CompanyDescription = $CompanyDescription;
+
+        return $this;
+    }
+
+    public function getIndustry(): ?string
+    {
+        return $this->industry;
+    }
+
+    public function setIndustry(?string $industry): static
+    {
+        $this->industry = $industry;
+
+        return $this;
+    }
+
+    public function getCompanyWebsite(): ?string
+    {
+        return $this->companyWebsite;
+    }
+
+    public function setCompanyWebsite(?string $companyWebsite): static
+    {
+        $this->companyWebsite = $companyWebsite;
+
+        return $this;
+    }
+
+    public function getCompanyLogo(): ?string
+    {
+        return $this->companyLogo;
+    }
+
+    public function setCompanyLogo(?string $companyLogo): static
+    {
+        $this->companyLogo = $companyLogo;
 
         return $this;
     }

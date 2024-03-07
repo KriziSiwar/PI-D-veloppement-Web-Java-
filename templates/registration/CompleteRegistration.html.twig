@@ -1,0 +1,148 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+<div class="card" style="width:60%;margin-top:120px;margin-left:50px">
+    <div class="card-body">
+        <h5 class="card-title">Complete your account</h5>
+        <style>
+            .form-floating {
+                margin-bottom: 20px; /* Adjust the value as needed */
+            }
+        </style>
+        <!-- Floating Labels Form -->
+        {% if formType == 'freelance' %}
+               {{ form_start(completeRegistrationForm) }}
+                                   {{ form_errors(completeRegistrationForm.Phone) }}
+
+                <div class="col-md-12" style="">
+                  <div class="form-floating">
+                                  {{ form_widget(completeRegistrationForm.JobTitle) }}
+
+                    <label for="floatingName">Job TiTle </label>
+                  </div>
+                </div>
+              
+               
+                <div class="col-12">
+                  <div class="form-floating">
+                    {{form_widget(completeRegistrationForm.ProfessionalOverview)}}
+                    <label for="floatingTextarea">Professional Overview</label>
+                  </div>
+                </div>
+            
+                <div class="col-md-4">
+                  <div class="form-floating mb-3">
+                   {{form_widget((completeRegistrationForm.Expertise))}}
+                    <label for="floatingSelect">Experience </label>
+                  </div>
+                
+                </div>
+                <div class="col-md-2">
+                  <div class="form-floating">
+{{form_widget((completeRegistrationForm.Phone))}}
+                    <label for="floatingZip">Phone Number</label>       
+                    
+                                   {{ form_errors(completeRegistrationForm.Phone) }}
+
+                  </div>
+                  <label >language(s)</label>
+
+
+              <div class="row mb-3">
+                  <div class="col-sm-10" style="width:220px">
+                 {{form_widget((completeRegistrationForm.language))}}
+
+                  </div>
+                </div>
+
+
+
+
+
+           <div class="row mb-3">
+                                      <label for="floatingZip">Profile Picture</label>       
+
+               <div class="form-floating">
+    {{ form_widget(completeRegistrationForm.ProfilePicture, {'attr': {'id': 'file-input'}}) }}
+    <img id="preview"   class="rounded-circle">
+</div>
+
+                </div>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+                {{form_end(completeRegistrationForm)}}
+
+
+
+                
+        {% else %}
+            {{ form_start(completeRegistrationForm) }}
+
+            <div class="form-floating">
+                {{ form_widget(completeRegistrationForm.Phone) }}
+                <label for="floatingName">Phone</label>
+                                                               {{ form_errors(completeRegistrationForm.Phone) }}
+
+            </div>
+            <div class="form-floating">
+                {{ form_widget(completeRegistrationForm.CompanyName) }}
+                <label for="floatingTextarea">Company Name</label>
+            </div>
+                 
+                <div class="col-12">
+                  <div class="form-floating">
+                    {{form_widget(completeRegistrationForm.CompanyDescription)}}
+                    <label for="floatingTextarea">Company Description</label>
+                  </div></div>
+
+    <div class="col-12">
+                  <div class="form-floating">
+                    {{form_widget(completeRegistrationForm.companyWebsite)}}
+                    <label for="floatingTextarea">Company Website</label>
+                  </div></div>
+
+
+ <div class="col-md-12" style="">
+                  <div class="form-floating">
+                                  {{ form_widget(completeRegistrationForm.industry) }}
+
+                    <label for="floatingName">industry </label>
+                  </div>
+                </div>
+
+
+
+
+
+            <label>Company Logo</label>
+
+            <div class="form-floating">
+                {{ form_widget(completeRegistrationForm.companyLogo, {'attr': {'id': 'file-input'}}) }}
+                <img id="preview" class="rounded-circle">
+            </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+        {{ form_end(completeRegistrationForm) }}
+                {% endif %}
+
+        <!-- End floating Labels Form -->
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('file-input').addEventListener('change', function(e) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('preview').src = e.target.result;
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    });
+});
+</script>
+{% endblock %}
