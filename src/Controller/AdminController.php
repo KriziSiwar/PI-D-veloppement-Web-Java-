@@ -7,6 +7,9 @@ use App\Form\RegistrationFormType;
 use App\Form\UserType;
 
 use App\Repository\UserRepository;
+use App\Repository\ContratRepository;
+use App\Repository\PostedJobsRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,14 +34,20 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'app_admin_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository,ContratRepository $contratRepository  ,PostedJobsRepository $postedJobRepository ): Response
     {
         // Get the currently logged in user
         $user = $this->getUser();
+        $contrats = $contratRepository->findAll();
+        $postedJobs = $postedJobRepository->findAll();
 
         return $this->render('Admin/index.html.twig', [
             'users' => $userRepository->findAll(),
             'user' => $user,
+            'contrats' => $contrats,
+            'postedJobs' => $postedJobs,
+
+ 
         ]);
     }
 

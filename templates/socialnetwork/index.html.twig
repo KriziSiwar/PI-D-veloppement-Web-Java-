@@ -1,0 +1,119 @@
+{% extends 'base1.html.twig' %}
+{% block body %}
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelancer Search</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- jQuery UI CSS -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .profile-picture {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+<h1 style="color: #380038; font-family: 'Arial', sans-serif; font-size: 2em; text-align: center;">Add Friends </h1>
+<p>Adding friends to your list can enhance your connections and open up more opportunities for referrals. Expand your network by adding friends and strengthen your professional relationships.</p>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <input type="text" id="search" class="form-control mb-4" placeholder="Search freelancers...">
+      <div id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jQuery UI -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#search').autocomplete({
+      source: function(request, response) {
+        $.ajax({
+          url: '/search', // Update this with the path to your route
+          method: 'GET',
+          data: { term: request.term },
+          success: function(data) {
+            var users = JSON.parse(data);
+            var results = users.map(function(user) {
+              return {
+                label: user.firstName + ' ' + user.lastName,
+                value: user.id,
+                profilePicture: user.profilePicture || '/uploads/profilepicture.png' // Default avatar image
+              };
+            });
+            response(results);
+          }
+        });
+      },
+      minLength: 1,
+      select: function(event, ui) {
+        // Redirect to user profile page on click
+        window.location.href = "/user/" + ui.item.value;
+      }
+
+      
+    }).autocomplete("instance")._renderItem = function(ul, item) {
+      var listItem = $("<li>").append(
+         `<a href="/socialnetwork/${item.value}" class="profile-link"> <!-- Anchor tag for redirection -->
+
+        <div class="d-flex align-items-center">
+          <img class="profile-picture mr-3" src="${item.profilePicture}" alt="Profile Picture" >
+          <span>${item.label}</span>
+        </div>
+        </a>`
+      );
+      return $("<li>").append(listItem).appendTo(ul);
+    };
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

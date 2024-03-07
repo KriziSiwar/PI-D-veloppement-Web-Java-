@@ -28,7 +28,7 @@
         {% set companyLogo = 'uploads/profilepicture.png' %}
     {% endif %}
     <img src="{{ asset(companyLogo) }}" class="rounded-circle" style="width:150px;height:150px">
-{% endif %}²
+{% endif %}
 
 
               <h2>{{ app.user.firstName }} {{ app.user.lastName }}</h2>
@@ -137,7 +137,39 @@
             </div>
           </div>
 
+<div class="card"   style="width :50%">
+    <div class="card-body">
+        <h5 class="card-title">Friends List</h5>
+
+        <!-- Friends List Table -->
+        <table class="table"      >
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <!-- Add additional columns as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, friend in friendsList %}
+                    <tr>
+                        <th scope="row">{{ key + 1 }}</th>
+                        <td>{{ friend.firstName }}</td>
+                        <td>{{ friend.lastName }}</td>
+                        <!-- Add additional columns as needed -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- End Friends List Table -->
+    </div>
+</div>
+
+
+
       </div>
+
 <form action="{{ path('app_user_controller_crud_delete', {'id': user.id}) }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
@@ -146,7 +178,7 @@
 
     </section>
     
-
+{# Assuming friendsList is an array of User entities #}
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

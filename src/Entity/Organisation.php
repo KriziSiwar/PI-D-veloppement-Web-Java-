@@ -159,9 +159,13 @@ class Organisation
 
         return $this;
     }
-    public function __toString()
+  /*  public function __toString()
     {
         return $this->getContrat();
+    }*/
+    
+    public function __toString() {
+        // Choose a property that represents the User object
+        return $this->nom;
     }
-
 }

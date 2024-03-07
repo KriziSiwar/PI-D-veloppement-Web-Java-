@@ -97,21 +97,24 @@ class UserControllerCrudController extends AbstractController
     
 
 
-
+ 
 
 
     #[Route('/{id}', name: 'app_user_controller_crud_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(User $user, UserRepository $userRepository): Response
     {
+        // Assuming friendsList contains IDs of users
+        $friendsListIds = $user->getFriendsList();
+    
+        // Fetch the User entities corresponding to the IDs
+        $friendsList = $userRepository->findBy(['id' => $friendsListIds]);
+    
         return $this->render('user_controller_crud/show.html.twig', [
             'user' => $user,
+            'friendsList' => $friendsList,
         ]);
     }
-
-
-
-
-
+    
 
 
 

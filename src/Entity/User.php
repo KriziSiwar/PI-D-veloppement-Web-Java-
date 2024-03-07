@@ -5,11 +5,14 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert; // Add this line
+
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -75,6 +78,68 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $companyLogo = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $reset_token = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $LastLogin = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $friendsList = null;
+
+
+
+    public function __construct()
+    {
+        $this->friendsList = [];
+    }
+  
+
+    // User.php
+
+            public function isFriend(User $friend): bool
+            {
+                return in_array($friend->getId(), $this->friendsList, true);
+            }
+            public function getFriendsList(): ?array
+{
+    return $this->friendsList;
+}
+
+
+            public function addFriendToList(User $friend): self
+    {
+        if (!in_array($friend->getId(), $this->friendsList, true)) {
+            $this->friendsList[] = $friend->getId();
+        }
+        return $this;
+    }
+
+    public function removeFriendFromList(User $friend): self
+    {
+        $key = array_search($friend->getId(), $this->friendsList, true);
+        if ($key !== false) {
+            unset($this->friendsList[$key]);
+        }
+
+        return $this;
+    }
+
+
+
+    public function getResetToken(): ?string
+    {
+        return $this->reset_token;
+    }
+
+    // Ajoutez une méthode setter pour définir le jeton de réinitialisation
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->reset_token = $resetToken;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -308,7 +373,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+    public function __toString()
+    {
+        // Choose a property that represents the User object
+        return $this->FirstName;
+    }
     public function getCompanyWebsite(): ?string
     {
         return $this->companyWebsite;
@@ -329,6 +398,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCompanyLogo(?string $companyLogo): static
     {
         $this->companyLogo = $companyLogo;
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->LastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $LastLogin): static
+    {
+        $this->LastLogin = $LastLogin;
+
+        return $this;
+    }
+
+
+
+    public function setFriendsList(?array $friendsList): static
+    {
+        $this->friendsList = $friendsList;
 
         return $this;
     }

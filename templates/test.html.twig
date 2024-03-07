@@ -1,0 +1,42 @@
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Search input field -->
+<input type="text" id="search" placeholder="Search freelancers...">
+
+<!-- Search results will be displayed here -->
+<div id="searchResults"></div>
+
+<script>
+$(document).ready(function() {
+    $('#search').keyup(function() {
+        var term = $(this).val();
+        if (term != '') {
+            $.ajax({
+                url: '/search',  // Update this with the path to your route
+                method: 'GET',
+                data: {term: term},
+                success: function(data) {
+                    // Parse the JSON data
+                    var users = JSON.parse(data);
+
+                    // Clear the search results
+                    $('#searchResults').empty();
+
+                    // Add each user to the search results
+                    users.forEach(function(user) {
+                        var userDiv = $('<div class="user"></div>');
+                        userDiv.append('<h2>' + user.firstName + ' ' + user.lastName + '</h2>');
+                        userDiv.append('<p>Email: ' + user.email + '</p>');
+                        // Add any other user details you want to include in the search results
+                        $('#searchResults').append(userDiv);
+                    });
+                }
+            });
+        } else {
+            // If the search field is empty, clear the search results
+            $('#searchResults').empty();
+        }
+    });
+});
+</script>
