@@ -68,7 +68,7 @@ class OrganisationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_organisation_delete', methods: ['POST'])]
+   /* #[Route('/{id}', name: 'app_organisation_delete', methods: ['POST'])]
     public function delete(Request $request, Organisation $organisation, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$organisation->getId(), $request->request->get('_token'))) {
@@ -76,9 +76,27 @@ class OrganisationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_organisation_index', [], Response::HTTP_SEE_OTHER);
-    }
+        return $this->render('organisation/show.html.twig', [
+            'organisation' => $organisation,
+        ]);
+    }*/
 
+
+    #[Route('/{id}', name: 'app_organisation_delete', methods: ['POST'])]
+    public function delete(Request $request, Organisation $organisation, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$organisation->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($organisation);
+            $entityManager->flush();
+            
+            return $this->render('organisation/show.html.twig', [
+                'organisation' => $organisation,
+            ]);// Remplacez 'app_organisations_index' par le nom de votre route pour afficher la liste des organisations
+        }
+
+        // En cas d'échec de la validation du jeton CSRF ou d'autres erreurs, vous pouvez rediriger vers une autre page ou afficher un message d'erreur
+        //return $this->redirectToRoute('app_error_page'); // Remplacez 'app_error_page' par le nom de votre route pour la page d'erreur appropriée
+    }
 
     /*#[Route('/{id}', name: 'app_organisation_delete', methods: ['POST'])]
     public function delete($id, ManagerRegistry $manager, OrganisationRepository$oRepo): Response

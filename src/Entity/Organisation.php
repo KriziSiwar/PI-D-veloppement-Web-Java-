@@ -161,7 +161,7 @@ class Organisation
     }
     public function __toString()
     {
-        return $this->getContrat();
+        return $this->nom;
     }
 
 }

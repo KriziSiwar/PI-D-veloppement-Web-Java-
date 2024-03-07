@@ -68,7 +68,40 @@ acceuil_contrats:
   controller: App\Controller\ContratController::acceuil
   methods: [GET]
 
+# config/routes.yaml
+#app_mon_graphique:
+    #path: /mongraphique
+    #controller: App\Controller\ContratController::monGraphique
+app_mon_graphique:
+    path: '/graph'
+    controller: 'App\Controller\ContratController::indexAction'
 
+# routes.yaml
+
+app_mon_stats:
+    path: /stats
+    controller: App\Controller\ContratController::contratStats
+    methods: ['GET']
+#[Route('/contractsbyyear', name: 'app_year')]
+app_year:
+    path: /contractsbyyear
+    controller: App\Controller\ContratController::contractsByYear
+    methods: ['GET']
+#[Route('/year', name: 'app_mon_year')]
+
+app_mon_year:
+    path: /year
+    controller: App\Controller\ContratController::contractsbyStats
+    methods: ['GET']
+   
+
+
+app_mon_statts_projet:
+    path: '/statsbyprojet'
+    controller: 'App\Controller\ContratController::contratStatsbyproject'
+contrat_stats_by_freelance:
+    path: /stats-by-freelance
+    controller: App\Controller\ContratController::contratStatsByFreelance
 
 
 

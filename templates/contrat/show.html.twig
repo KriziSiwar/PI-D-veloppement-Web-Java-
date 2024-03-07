@@ -1,6 +1,5 @@
 {% extends 'base1.html.twig' %}
 
-
 {% block body %}
 
 <div class="row justify-content-center align-items-center" style="height: 100vh;">
@@ -10,103 +9,97 @@
                 <a href="{{ path('contract/new') }}" method="post"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
                 <h5 class="card-title">Liste des contrats</h5>
 
+                <!-- Formulaire de recherche -->
+                <form id="search-form" class="mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="criteria">Rechercher par :</label>
+                            <select name="criteria" class="form-control">
+                                <option value="projet">Projet</option>
+                                <option value="date_debut">Date de début</option>
+                                <option value="date_fin">Date de fin</option>
+                                <option value="montant">Montant</option>
+                                <option value="statut">Statut</option>
+                                <!-- Ajoutez d'autres options selon les attributs que vous souhaitez permettre à l'utilisateur de rechercher -->
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="search-input">Terme de recherche :</label>
+                            <input type="text" id="search-input" name="search" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary mt-4">Rechercher</button>
+                        </div>
+                    </div>
+                </form>
+
 
                 <!-- Table with stripped rows -->
                 <table class="table table-striped">
                     <thead>
-                     <tr>
-     <td>id</td>
-     <td>date_debut</td>
-     <td>date_fin</td>
-     <td>montant</td>
-     <td>statut</td> <!-- Ajout du chevron fermant -->
-     <td>projet</td>
-     <td>freelancer</td>
-     <td>organisation_id</td>
-     <td>user_id</td>
-     <td>date_creation</td>
-     <td>description</td>
-     <td>Modification</td>
-     <td>Suppression</td> <!-- Ajout du chevron fermant -->
-       </tr>
-        </thead>
+                        <tr>
+                            <td>id</td>
+                            <td>date_debut</td>
+                            <td>date_fin</td>
+                            <td>montant</td>
+                            <td>statut</td>
+                            <td>projet</td>
+                            <td>freelancer</td>
+                            <td>organisation_id</td>
+                            <td>user_id</td>
+                            <td>date_creation</td>
+                            <td>description</td>
+                            <td>paye</td>
+                            <td>Modification</td>
+                            <td>Suppression</td>
+                            <td>voir statistiques</td> <!-- Ajout de l'en-tête pour les statistiques -->
+                        </tr>
+                    </thead>
                     <tbody>
-                    {% for c in contrats %}
-                        
-        <td>{{ c.id }}</td>
-        <td>{{ c.date_debut|date("Y-m-d") }}</td>
-        <td>{{ c.date_fin|date("Y-m-d") }}</td>
-        <td>{{ c.montant }}</td>
-        <td>{{ c.statut }}</td> <!-- Correction de la balise -->
-        <td>{{ c.projet }}</td>
-        <td>{{ c.freelancer }}</td>
-       <td>{{ c.organistion}}</td>
-        <td>{{ c.user}}</td>
-        <td>{{ c.date_creation |date("Y-m-d")}}</td>
-        <td>{{ c.description}}</td>
+                        {% for c in contrats %}
+                        <tr>
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.date_debut|date("Y-m-d") }}</td>
+                            <td>{{ c.date_fin|date("Y-m-d") }}</td>
+                            <td>{{ c.montant }}</td>
+                            <td>{{ c.statut }}</td>
+                            <td>{{ c.projet }}</td>
+                            <td>{{ c.freelancer }}</td>
+                            <td>{{ c.organisation}}</td>
+                            <td>{{ c.user.FirstName}}</td>
+                            <td>{{ c.date_creation |date("Y-m-d")}}</td>
+                            <td>{{ c.description}}</td>
+                            <td>{{ c.paye}}</td>
 
-        <td>
-            <a class="btn btn-success" href="{{ path('contract/edit', {'id': c.id}) }}">Modifier</a>
-        </td>
-        <form action="{{ path('contract/delete', {'id': c.id}) }}" method="post">
-        <input type="hidden" name="_method" value="DELETE">
-        <td>
-            <button type="submit" class="btn btn-danger">Supprimer</button>
-        </td>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        </tr>
-        {% endfor %}
-          </tbody>
+                            <td>
+                                {% if c.date_fin|date_modify('+3 days') <= "now"|date('Y-m-d') and not c.paye %}
+                                <a class="btn btn-success" href="{{ path('contract/edit', {'id': c.id}) }}">Modifier</a>
+                                {% else %}
+                                <button class="btn btn-success disabled" disabled>Modifier</button>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <form action="{{ path('contract/delete', {'id': c.id}) }}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+
+                            <td>
+                                <a class="btn btn-success" href="{{ path('app_mon_stats') }}">voir statistiques</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
                 <!-- End small tables -->
-
-            </div>
-            </div>
-
-           </div>
-
-
-
-            </div>
-            {% endblock %}
-
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                
+                <!-- Bouton "Ajouter contrat" -->
+                {% if not boutonAjouterContratDesactive %}
+                <a class="btn btn-primary" href="{{ path('contract/show') }}">Ajouter contrat</a>
+                {% else %}
+                <button class="btn btn-primary disabled" disabled>Ajouter contrat</button>
+                {% endif %}
+        
+{% endblock %}

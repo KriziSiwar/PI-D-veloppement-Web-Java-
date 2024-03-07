@@ -45,4 +45,98 @@ class ContratRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function countByStatut()
+{
+    return $this->createQueryBuilder('c')
+        ->select('c.statut, COUNT(c.id) as total')
+        ->groupBy('c.statut')
+        ->getQuery()
+        ->getResult();
 }
+public function sumMontantByProjet()
+{
+    return $this->createQueryBuilder('c')
+        ->select('c.projet, SUM(c.montant) as totalMontant')
+        ->groupBy('c.projet')
+        ->getQuery()
+        ->getResult();
+}
+
+/*public function findContractsByYear()
+    {
+
+        $contracts = $this->createQueryBuilder('c')
+        ->select('c.date_debut as date_debut') // Sélectionnez la date directement
+        ->addSelect('COUNT(c.id) as nombreContrats')
+        ->groupBy('date_debut')
+        ->getQuery()
+        ->getResult();
+
+    $result = [];
+    foreach ($contracts as $contract) {
+        $year = $contract['date_debut']->format('Y'); // Extraire l'année de la date
+        if (!isset($result[$year])) {
+            $result[$year] = 0;
+        }
+        $result[$year] += $contract['nombreContrats'];
+    }
+
+    return $result;
+    }*/
+    public function findContractsByYear($startDate, $endDate)
+{
+    return $this->createQueryBuilder('c')
+        ->andWhere('c.date_debut BETWEEN :startDate AND :endDate')
+        ->setParameter('startDate', $startDate)
+        ->setParameter('endDate', $endDate)
+        ->getQuery()
+        ->getResult();
+}
+
+public function findContractsByDateRange($startDate, $endDate)
+{
+    return $this->createQueryBuilder('c')
+        ->andWhere('c.date_debut BETWEEN :startDate AND :endDate')
+        ->setParameter('startDate', $startDate)
+        ->setParameter('endDate', $endDate)
+        ->getQuery()
+        ->getResult();
+}
+
+public function searchContrats(string $criteria, string $searchTerm): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+
+        // Construisez la requête en fonction des critères de recherche
+        switch ($criteria) {
+            case 'date_debut':
+                $queryBuilder->andWhere('c.dateDebut LIKE :searchTerm')
+                             ->setParameter('searchTerm', '%' . $searchTerm . '%');
+                break;
+            case 'date_fin':
+                $queryBuilder->andWhere('c.dateFin LIKE :searchTerm')
+                             ->setParameter('searchTerm', '%' . $searchTerm . '%');
+                break;
+            case 'montant':
+                $queryBuilder->andWhere('c.montant LIKE :searchTerm')
+                             ->setParameter('searchTerm', '%' . $searchTerm . '%');
+                break;
+            case 'statut':
+                $queryBuilder->andWhere('c.statut LIKE :searchTerm')
+                             ->setParameter('searchTerm', '%' . $searchTerm . '%');
+                break;
+            case 'projet':
+                $queryBuilder->andWhere('c.projet LIKE :searchTerm')
+                             ->setParameter('searchTerm', '%' . $searchTerm . '%');
+                break;
+            // Ajoutez plus de cas pour d'autres critères si nécessaire
+        }
+
+        // Exécutez la requête et retournez les résultats
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
+
+    }
+

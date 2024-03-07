@@ -1,0 +1,7 @@
+{% if contrat.statut == 'En cours' %}
+    <p>Le contrat est en attente de validation.</p>
+{% elseif contrat.etat == 'Terminé' %}
+    <p>Le contrat a été validé.</p>
+{% elseif contrat.etat == 'reporté' %}
+    <p>Le contrat a été refusé.</p>
+{% endif %}
