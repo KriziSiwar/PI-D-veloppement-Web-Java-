@@ -1,0 +1,57 @@
+{% block body %}
+<div class="container">
+    <div class="newspaper">
+        <header class="newspaper-header">
+            <h1 class="newspaper-title">{{ actualite.titre }}</h1>
+            <p class="newspaper-date">{{ actualite.datePublication|date('Y-m-d') }}</p>
+        </header>
+        <article class="newspaper-article">
+            <img src="{{ absolute_url(asset('images/' ~ actualite.image)) }}" alt="{{ actualite.titre }}" class="newspaper-image">
+            <div class="newspaper-content">
+                <p>{{ actualite.description }}</p>
+            </div>
+        </article>
+        <footer class="newspaper-footer">
+            <p class="newspaper-category">{{ actualite.categorie }}</p>
+        </footer>
+    </div>
+</div>
+
+<style>
+    .newspaper {
+        font-family: 'Times New Roman', Times, serif;
+        max-width: 600px;
+        margin: auto;
+        border: 1px solid #d3d3d3;
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+    .newspaper-header, 
+    .newspaper-footer {
+        text-align: center;
+        border-bottom: 1px solid #d3d3d3;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+    .newspaper-title {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    .newspaper-date {
+        font-size: 18px;
+        color: #555;
+    }
+    .newspaper-image {
+        width: 100%;
+        height: auto;
+        margin: 10px 0;
+    }
+    .newspaper-article {
+        text-align: justify;
+    }
+    .newspaper-category {
+        font-size: 18px;
+        color: #555;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+	<main>
+		<div class="container">
+			<style>
+				.content-box {
+					margin-left: auto;
+					margin-right: auto;
+					max-width: 800px; /* Adjust the max-width as needed */
+					margin-top: 50px; /* Adjust the top margin as needed */
+					padding: 70px; /* Add padding as needed */
+				}
+			</style>
+
+			<div class="content-box">
+				<h1>Proposal index</h1>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Titre</th>
+							<th>Description</th>
+                             <th>client</th>
+							 <th>freelancer</th>
+							<th>Budget</th>
+							<th>Delai</th>
+							<th>statut</th>
+
+							<th>Date_soummission</th>
+							<th>Date_debut</th>
+							<th>Date_fin</th>
+                           <th>fichiers</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for proposal in proposals %}
+							<tr>
+								<td>{{ proposal.id }}</td>
+								<td>{{ proposal.titre }}</td>
+								<td>{{ proposal.description }}</td>
+								<td>{{ proposal.client }}</td>
+								<td>{{ proposal.freelancer }}</td>
+
+								<td>{{ proposal.budget }}</td>
+								<td>{{ proposal.delai }}</td>
+								<td>{{ proposal.statut }}</td>
+
+								<td>{{ proposal.dateSoummission ? proposal.dateSoummission|date('Y-m-d') : '' }}</td>
+								<td>{{ proposal.dateDebut ? proposal.dateDebut|date('Y-m-d') : '' }}</td>
+								<td>{{ proposal.dateFin ? proposal.dateFin|date('Y-m-d') : '' }}</td>
+                                  <td>{{ proposal.fichiers }}</td>
+								<td>
+									<a href="{{ path('app_proposal_show', {'id': proposal.id}) }}">show</a>
+									<a href="{{ path('app_proposal_edit', {'id': proposal.id}) }}">edit</a>
+									<a>{{ include('proposal/_delete_form.html.twig') }}<a></td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="13">no records found</td>
+									</tr>
+								{% endfor %}
+							</tr>
+						</tbody>
+					</tbody>
+				</table>
+				
+				<a href="{{ path('app_proposal_new') }}">Create new</a>
+				
+			</div>
+		</div>
+		
+	</main>
+{% endblock %}

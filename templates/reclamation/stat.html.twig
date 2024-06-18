@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Reclamation Statistics</h1>
+         <div style="max-width: 400px; margin: auto;"> <!-- Adjust the size here -->
+        <canvas id="reclamationChart"></canvas>
+    </div>
+
+    {# Include Chart.js (make sure you have an internet connection) #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('reclamationChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: {{ labels|json_encode|raw }},
+                    datasets: [{
+                        label: 'Reclamations by Freelancer',
+                        data: {{ data|json_encode|raw }},
+                        backgroundColor: [
+                            // You can define a list of colors here for each slice
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                            // ...
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+    </script>
+{% endblock %}

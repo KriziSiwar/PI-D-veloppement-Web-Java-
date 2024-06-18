@@ -1,0 +1,64 @@
+{# templates/commentaire/index.html.twig #}
+
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+	<main>
+		<div class="container">
+			<style>
+				.content-box {
+					margin-left: auto;
+					margin-right: auto;
+					max-width: 600px; /* Adjust the max-width as needed */
+					margin-top: 50px; /* Adjust the top margin as needed */
+					padding: 70px;
+				}
+			</style>
+			<div class="content-box">
+				<h1 class="text-center">Comments index</h1>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Auteur</th>
+							<th>Commentaire</th>
+							<th>Date_publication</th>
+							<th>Note</th>
+							
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for commentaire in commentaires %}
+							<tr>
+								<td>{{ commentaire.id }}</td>
+								<td>{{ commentaire.auteur }}</td>
+								<td>{{ commentaire.commentaire }}</td>
+								<td>{{ commentaire.date_publication ? commentaire.date_publication|date('Y-m-d') : '' }}</td>
+								<td>{{ commentaire.note }}</td>
+								
+								
+									
+								
+								
+								<td>
+									<a href="{{ path('app_commentaire_show', {'id': commentaire.id}) }}">show</a>
+									<a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+
+									{{ include('commentaire/_delete_form.html.twig') }}
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="8">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				<a href="{{ path('app_commentaire_new') }}">Create new</a>
+			</div>
+		</div>
+	</main>
+{% endblock %}

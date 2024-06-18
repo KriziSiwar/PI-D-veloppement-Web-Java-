@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">My jobs</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section dashboard">
+            <div class="row">
+                <!-- Recent Sales -->
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="filter mx-3">
+                            <input class="datatable-input" placeholder="Search..." type="search"
+                                   title="Search within table">
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">List of jobs <span>|
+                                            <a href="{{ path('app_assigned_jobs_new') }}" class="icon text-center">
+                                                Assign <i class="bi  bi-file-earmark-person-fill text-success"></i>
+                                            </a></span></h5>
+                            <table class="table table-borderless">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Skills</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Budget</th>
+                                    <th scope="col">Duration</th>
+                                    <th colspan="2" class="text-center">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for posted_job in posted_jobs %}
+                                    <tr>
+                                        <td>{{ posted_job.title }}</td>
+                                        <td>{{ posted_job.requiredSkills }}</td>
+                                        <td>{{ posted_job.description }}</td>
+                                        <td>{{ posted_job.budgetEstimate }}</td>
+                                        <td>{{ 'From '~posted_job.startDate|date('d-m-Y')~' To '~posted_job.endDate|date('d-m-Y') }}</td>
+                                        <td>
+                                            <a href="{{ path('app_posted_jobs_edit', {'id': posted_job.id}) }}"
+                                               class="icon text-center">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="icon text-center">
+                                                {{ include('posted_jobs/_delete_form.html.twig') }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div><!-- End Recent Sales -->
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+{% endblock %}

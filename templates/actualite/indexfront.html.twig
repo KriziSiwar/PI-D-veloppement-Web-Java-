@@ -1,0 +1,73 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+	<main>
+		<div class="container">
+			<style>
+				.content-box {
+					margin-left: auto;
+					margin-right: auto;
+					max-width: 800px; /* Adjust the max-width as needed */
+					margin-top: 50px; /* Adjust the top margin as needed */
+					padding: 70px; /* Add padding as needed */
+				}
+			</style>
+			<br><br><br>
+
+			<h2>Actualités</h2>
+			<br>
+			<div class="row">
+				{% for A in actualites %}
+					<div class="col-md-3 mb-4">
+						<div class="card h-100 text-center">
+							<img class="card-img-top" src="{{ asset('images/' ~ A.image) }}" alt="Image de voyage">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title">{{ A.titre }}</h5>
+								<p class="card-text flex-grow-1">{{ A.description | slice(0, 100) ~ '...' }}</p>
+								<div class="d-flex justify-content-between">
+									<button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal{{ A.id }}">
+										Plus d'infos
+									</button>
+									<a href="{{ path('pdf_generate', {'id': A.id}) }}" class="btn btn-primary">
+										Imprimer
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Modal Structure -->
+					<div class="modal fade" id="modal{{ A.id }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ A.id }}Label" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modal{{ A.id }}Label">{{ A.titre }}</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<img src="{{ asset('images/' ~ A.image) }}" alt="Image de voyage" class="img-fluid">
+									<p>{{ A.description }}</p>
+									<p>Date de publication :
+										{{ A.datepublication|date('Y-m-d') }}</p>
+									<p>Catégorie :
+										{{ A.categorie }}</p>
+									<!-- Ajoutez d'autres champs ici selon vos besoins -->
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+									<a href="{{ path('pdf_generate', {'id': A.id}) }}" class="btn btn-primary">
+										Imprimer
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<p></p>
+				{% endfor %}
+			</div>
+		</div>
+
+	{% endblock %}

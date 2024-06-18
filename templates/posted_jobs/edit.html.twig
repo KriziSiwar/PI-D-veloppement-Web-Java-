@@ -1,0 +1,93 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Making Changes to {{ posted_job.title }}{% endblock %}
+
+{% block links %}
+    <li><a class="nav-link scrollto" href="{{ path('homepage') }}">Home</a></li>
+    <li><a class="nav-link scrollto active" href="{{ path('app_posted_jobs_front') }}">Jobs</a></li>
+    {% if app.user %}
+        <li><a class="getstarted scrollto" href="#">{{ app.user.email }}</a></li>
+    {% else %}
+        <li><a class="getstarted scrollto" href="{{ path('app_login') }}">Login</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <main id="main">
+
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>New</h2>
+                    <p>Write your job details</p>
+                </header>
+
+                <div class="row gy-4">
+                    <div class="message-flash">
+                        {% for flash_error in app.flashes('verify_email_error') %}
+                            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                        {% endfor %}
+                    </div>
+                    {{ form_start(form,{'attr':{'novalidate':'novalidate'  }}) }}
+                    <div class="row gy-4">
+
+                        <div>
+                            {{ form_label(form.title) }}
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.title) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.description) }}
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.description) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.required_skills) }}
+                            {{ form_widget(form.required_skills, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.required_skills) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.budget_estimate) }}
+                            {{ form_widget(form.budget_estimate, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.budget_estimate) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.start_date) }}
+                            {{ form_widget(form.start_date, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.start_date) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.end_date) }}
+                            {{ form_widget(form.end_date, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.end_date) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.status) }}
+                            {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.status) }}
+                        </div>
+
+                       
+                        <div class="col-md-12 text-center">
+                            <button type="submit">Post</button>
+                        </div>
+
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+
+            </div>
+
+        </section><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+{% endblock %}

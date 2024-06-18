@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AssignedJobs{% endblock %}
+
+{% block body %}
+    <h1>AssignedJobs</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ assigned_job.id }}</td>
+            </tr>
+            <tr>
+                <th>Start_date</th>
+                <td>{{ assigned_job.startDate ? assigned_job.startDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>End_date</th>
+                <td>{{ assigned_job.endDate ? assigned_job.endDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ assigned_job.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_assigned_jobs_index') }}">back to list</a>
+
+    <a href="{{ path('app_assigned_jobs_edit', {'id': assigned_job.id}) }}">edit</a>
+
+    {{ include('assigned_jobs/_delete_form.html.twig') }}
+{% endblock %}

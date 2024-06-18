@@ -1,0 +1,104 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+	<main>
+		<div class="container">
+			<style>
+				.content-box {
+					margin-left: auto;
+					margin-right: auto;
+					max-width: 800px; /* Adjust the max-width as needed */
+					margin-top: 50px; /* Adjust the top margin as needed */
+					padding: 70px; /* Add padding as needed */
+				}
+			</style>
+
+			<div class="content-box">
+				<h1>Mes réclamations</h1>
+
+				<a href="{{ path('app_reclamation_new') }}" class="btn btn-success mb-3">Réclamer</a>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Objet</th>
+							<th>Statut</th>
+							<th>Détail</th>
+							<th></th>
+							<th></th>
+
+
+						</tr>
+					</thead>
+					<tbody>
+						{% for reclamation in reclamations %}
+							<tr>
+								<td>{{ reclamation.objet }}</td>
+								<td>
+									{% if reclamation.statut == 'en cours' %}
+										⏳
+									{% elseif reclamation.statut == 'ouverte' %}
+										🆕
+									{% elseif reclamation.statut == 'résolu' %}
+										✅
+									{% else %}
+										{{ reclamation.statut }}
+									{% endif %}
+								</td>
+								<td>
+									<button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal{{ reclamation.id }}">
+										Détail
+									</button>
+								</td>
+								<td>
+									<a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">
+										<img src="{{ asset('modifr.png') }}" style="width:30px;height:30px;border:0">
+									</a>
+								</td>
+								<td>
+									<a href="{{ path('deleterecl1', {'id': reclamation.id}) }}">
+										<img src="{{ asset('supr.png') }}" style="width:30px;height:30px;border:0">
+									</a>
+								</td>
+
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="3">Aucune réclamation trouvée.</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				{% for reclamation in reclamations %}
+					<div class="modal fade" id="modal{{ reclamation.id }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ reclamation.id }}Label" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modal{{ reclamation.id }}Label">{{ reclamation.objet }}</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<p>Description :
+										{{reclamation.contenu}}</p>
+									<p>Date de création :
+										{{ reclamation.datereclamation|date('Y-m-d') }}</p>
+									
+
+									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+								</div>
+							
+
+							</div>
+						</div>
+					</div>
+
+				{% endfor %}
+                	
+			</div>
+			<br>
+		{% endblock %}

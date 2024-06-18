@@ -87,7 +87,7 @@ class SecurityController extends AbstractController
 
 
             //BUNDLE MAILER
-                $transport = Transport::fromDsn('smtp://omar.laatter@gmail.com:cxyjseanhsbmwpxw@smtp.gmail.com:587');
+                $transport = Transport::fromDsn('smtp://omar.laatter@gmail.com:fsoo%20mcks%20myyb%20uayl@smtp.gmail.com:587');
                 $mailer = new Mailer($transport);
 
             $message = (new Email())

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <main>
+        <div class="container">
+            <style>
+                .content-box {
+                  margin-left: auto;
+                    margin-right: auto;
+                    max-width: 600px; /* Adjust the max-width as needed */
+                    margin-top: 50px; /* Adjust the top margin as needed */
+                    padding: 70px; 
+                }
+            </style>
+
+            <div class="content-box">
+                <h1>Actualite</h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ actualite.id }}</td>
+                        </tr>
+                        {#<tr>
+                            <th>Titre</th>
+                            <td>{{ actualite.titre }}</td>
+                        </tr>#}
+                        <tr>
+                            <th>Date_publication</th>
+                            <td>{{ actualite.datePublication ? actualite.datePublication|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ actualite.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Categorie</th>
+                            <td>{{ actualite.categorie }}</td>
+                        </tr>
+                        <tr>
+                            <th>Image</th>
+                            <td>{{ actualite.image }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_actualite_index') }}">back to list</a>
+
+                <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">edit</a>
+
+                {{ include('actualite/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </main>
+{% endblock %}
